@@ -38,7 +38,6 @@ const Home = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
-      
       if (data?.success) {
         setCategories(data?.category);
       }
