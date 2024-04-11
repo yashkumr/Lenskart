@@ -11,10 +11,10 @@ import UserDashboard from "./pages/User/UserDashboard.jsx";
 import UserMenu from "./components/extraComponent/UserMenu.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import AllUser from "./pages/Admin/AllUser.jsx";
-import UpdateProducts from "./pages/Admin/UpdateProducts.jsx";
+
 
 import Category from "./pages/Admin/Category/index.jsx";
-import Products from "./pages/Admin/Products/index.jsx";
+
 import HomeBanner from "./pages/Admin/Banner/HomeBanner.jsx";
 import UpdateBanner from "./pages/Admin/Banner/UpdateBanner.jsx";
 
@@ -26,8 +26,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/create-product" element={<Products />} />
-          <Route path="admin/product/:slug" element={<UpdateProducts />} />
+         
+          
           <Route path="admin/banner" element={<HomeBanner />} />
           <Route path="admin/all-users" element={<AllUser />} />
           <Route path="admin/create-category" element={<Category />} />

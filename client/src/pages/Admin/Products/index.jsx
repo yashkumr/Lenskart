@@ -144,7 +144,7 @@ const Products = (props) => {
                         const payload = {
                           productId: product._id,
                         };
-                        dispatch(deleteProductById(payload));
+                        // dispatch(deleteProductById(payload));
                       }}
                     >
                       del
@@ -214,12 +214,12 @@ const Products = (props) => {
           
 
           <option>Ready To Wear</option>
-          <option>Unstitched</option>
-          <option>Home</option>
-          <option>Men</option>
-          <option>Western</option>
-          <option>Kids</option>
-          <option>Accessories</option>
+          <option>unstiched</option>
+          <option>bear</option>
+          <option>men</option>
+          <option>western</option>
+          <option>kid</option>
+          <option>accessories</option>
         </select>
         {productPictures.length > 0
           ? productPictures.map((pic, index) => (
