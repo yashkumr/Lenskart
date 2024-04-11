@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-
 import { Container, Row, Col, Table } from "react-bootstrap";
 import Input from "../Category/UI/Input";
 import Modal from "../Category/UI/Modal";
-
-// import { addProduct, deleteProductById } from "../../actions";
+import toast from "react-hot-toast";
+import axios from "axios";
 import "./style.css";
 import AdminLayout from "../../../adminComponents/AdminLayout";
 
@@ -13,20 +12,20 @@ const Products = (props) => {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const[visibilty, setVisibility] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [productPictures, setProductPictures] = useState([]);
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
-  const[category, setCategory] = useState([]);
-  // const category = useSelector((state) => state.category);
-  // const product = useSelector((state) => state.product);
+  const [category, setCategory] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
   //getAll category
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
-     
+
       if (data?.success) {
         setCategory(data?.category);
       }
@@ -38,6 +37,22 @@ const Products = (props) => {
 
   useEffect(() => {
     getAllCategory();
+  }, []);
+  //getall products
+  const getAllProducts = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/get-product");
+
+      setAllProducts(data.products);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong");
+    }
+  };
+
+  //lifecycle method
+  useEffect(() => {
+    getAllProducts();
   }, []);
 
   const handleClose = () => {
@@ -51,17 +66,15 @@ const Products = (props) => {
     form.append("price", price);
     form.append("description", description);
     form.append("category", categoryId);
+    form.append("visibility",visibilty);
 
     for (let pic of productPictures) {
       form.append("productPicture", pic);
     }
 
     // dispatch(addProduct(form)).then(() => setShow(false));
-    const { data } = axios.post(
-      "/api/v1/product/create-product",
-      form
-    );
-    setShow(false)
+    const { data } = axios.post("/api/v1/product/create-product", form);
+    setShow(false);
     console.log(form);
     if (data?.success) {
       toast.error(data?.message);
@@ -69,7 +82,6 @@ const Products = (props) => {
       toast.success("Product Created Successfully");
       // navigate("/dashboard/admin/products");
     }
-
   };
   const handleShow = () => setShow(true);
 
@@ -89,48 +101,61 @@ const Products = (props) => {
   };
 
   const renderProducts = () => {
-    // return (
-    //   <Table style={{ fontSize: 12 }} responsive="sm">
-    //     <thead>
-    //       <tr>
-    //         <th>#</th>
-    //         <th>Name</th>
-    //         <th>Price</th>
-    //         <th>Quantity</th>
-    //         <th>Category</th>
-    //         <th>Actions</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {product.products.length > 0
-    //         ? product.products.map((product) => (
-    //             <tr key={product._id}>
-    //               <td>2</td>
-    //               <td>{product.name}</td>
-    //               <td>{product.price}</td>
-    //               <td>{product.quantity}</td>
-    //               <td>{product.category.name}</td>
-    //               <td>
-    //                 <button onClick={() => showProductDetailsModal(product)}>
-    //                   info
-    //                 </button>
-    //                 <button
-    //                   onClick={() => {
-    //                     const payload = {
-    //                       productId: product._id,
-    //                     };
-    //                     dispatch(deleteProductById(payload));
-    //                   }}
-    //                 >
-    //                   del
-    //                 </button>
-    //               </td>
-    //             </tr>
-    //           ))
-    //         : null}
-    //     </tbody>
-    //   </Table>
-    // );
+    return (
+      <Table style={{ fontSize: 12 }} responsive="sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Category</th>
+
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allProducts.length > 0
+            ? allProducts.map((product, id) => (
+                <tr key={product._id}>
+                  <td>{id + 1}</td>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  <td>{product.quantity}</td>
+                  <td>{product && product?.category?.name}</td>
+                  {/* <td>
+                    <div style={{ display: "flex" }}>
+                      {product.productPictures.map((picture) => (
+                        <div className="productImgContainer">
+                          <img
+                            src={`../../public/uploads/${picture.img}`}
+                            alt="images"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </td> */}
+                  <td>
+                    <button onClick={() => showProductDetailsModal(product)}>
+                      info
+                    </button>
+                    <button
+                      onClick={() => {
+                        const payload = {
+                          productId: product._id,
+                        };
+                        dispatch(deleteProductById(payload));
+                      }}
+                    >
+                      del
+                    </button>
+                  </td>
+                </tr>
+              ))
+            : null}
+        </tbody>
+      </Table>
+    );
   };
 
   const renderAddProductModal = () => {
@@ -166,7 +191,7 @@ const Products = (props) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <select
-          className="form-control"
+          className="form-control mt-2"
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
@@ -176,6 +201,25 @@ const Products = (props) => {
               {option.name}
             </option>
           ))}
+        </select>
+
+
+           <label className="mt-2 ">Visibility</label>
+        <select
+        
+          className="form-control  mb-2 "
+          value={visibilty}
+          onChange={(e) => setVisibility(e.target.value)}
+        >
+          
+
+          <option>Ready To Wear</option>
+          <option>Unstitched</option>
+          <option>Home</option>
+          <option>Men</option>
+          <option>Western</option>
+          <option>Kids</option>
+          <option>Accessories</option>
         </select>
         {productPictures.length > 0
           ? productPictures.map((pic, index) => (
@@ -229,7 +273,9 @@ const Products = (props) => {
           </Col>
           <Col md="6">
             <label className="key">Category</label>
-            <p className="value">{productDetails.category.name}</p>
+            <p className="value">
+              {productDetails && productDetails?.category?.name}
+            </p>
           </Col>
         </Row>
         <Row>
@@ -244,7 +290,10 @@ const Products = (props) => {
             <div style={{ display: "flex" }}>
               {productDetails.productPictures.map((picture) => (
                 <div className="productImgContainer">
-                  <img src={picture.img} alt="" />
+                  <img
+                    src={`../../public/uploads/${picture.img}`}
+                    alt="images"
+                  />
                 </div>
               ))}
             </div>

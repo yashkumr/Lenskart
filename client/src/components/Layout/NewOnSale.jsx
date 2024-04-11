@@ -5,7 +5,25 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 
-const NewOnSale = () => {
+export default function NewOnSale() {
+  const [activeButton, setActiveButton] = useState(null);
+  const[visibilities, setVisibilites] = useState([]);
+
+  const handleButtonClick = async(buttonId) => {
+    try{
+      setActiveButton(buttonId);
+     
+    const { data } = await axios.get(`/api/v1/product/visible-product/${buttonId}`)
+
+    setVisibilites(data?.products);
+    }
+    catch(error){
+      console.log(error);
+    }
+    
+
+  }
+
   var settings = {
     dots: true,
     infinite: false,
@@ -44,8 +62,18 @@ const NewOnSale = () => {
     <>
       <div>
         <div className="homeCardSlider-top mt-5">
-          <h1> SHOP BY POPULAR CATEGORY</h1>
+          <h1> NEW ON SALE</h1>
         </div>
+        <div className="sale-tab-section">
+         <button className={activeButton === "western" ? 'active' : 'sale-tab-button'}  onClick={() => handleButtonClick("western")}>Western</button>
+         <button className={activeButton === "unstiched" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("unstiched")}>Unstiched</button>
+         <button className={activeButton === "home" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("home")}>Home</button>
+         <button className={activeButton === "men" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("men")}>Men</button>
+         <button className={activeButton === "bear" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("bear")}> Ready To Bear</button>
+         <button className={activeButton === "kid" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("kid")}>Kids</button>
+         <button className={activeButton === "accessories" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("accessories")}>Accessories</button>
+        </div>
+        
 
         <div style={{ backgroundColor: "rgb(233 233 233)" }}>
           <div
@@ -125,5 +153,3 @@ const NewOnSale = () => {
     </>
   );
 };
-
-export default NewOnSale;

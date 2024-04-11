@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout.jsx";
 import Slider from "react-slick";
 import SlickSlider from "../components/Layout/SlickSlider.jsx";
@@ -10,12 +10,51 @@ import Trending from "../components/Layout/Trending.jsx";
 import Customer from "../components/Layout/Customer.jsx";
 import GridIcons from "../components/Layout/GridIcons.jsx";
 import Anupam from "../components/Layout/Anupam.jsx";
-
+import axios from "axios";
 
 const Home = () => {
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [banners, setBanners] = useState([]);
+
+  //getBanner
+  const getAllBanner = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/banner/get-banner");
+      if (data?.success) {
+        setBanners(data?.products);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong in sunglass");
+    }
+  };
+  useEffect(() => {
+    getAllBanner();
+  }, []);
+
+  //getAllCategory
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/category/get-category");
+      
+      if (data?.success) {
+        setCategories(data?.category);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
   return (
     <>
       <Layout title={"Home-page"}>
+        {/* Bootstrap Caraousel */}
         <div className="lence-banner mb-5">
           <div
             id="carouselExampleFade"
@@ -23,41 +62,15 @@ const Home = () => {
             data-bs-ride="carousel"
           >
             <div className="carousel-inner">
-              <div className="carousel-item active">
-                <img
-                  src="../../public/images/Home/carousel1.webp"
-                  className="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="../../public/images/Home/carousel2.webp"
-                  className="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="../../public/images/Home/carousel3.webp"
-                  className="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="../../public/images/Home/carousel4.webp"
-                  className="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="../../public/images/Home/carousel5.webp"
-                  className="d-block w-100"
-                  alt="..."
-                />
-              </div>
+              {banners?.map((c) => (
+                <div className="carousel-item active">
+                  <img
+                    src={`/api/v1/banner/product-photo/${c._id}`}
+                    className="card-img-top"
+                    alt={c.name}
+                  />
+                </div>
+              ))}
             </div>
             <button
               className="carousel-control-prev"
@@ -79,6 +92,7 @@ const Home = () => {
             </button>
           </div>
         </div>
+        {/* End Bootstrap Caraousel */}
 
         {/* slickSlider */}
 

@@ -6,8 +6,15 @@ import categoryModal from "../models/categoryModal.js";
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, price, description, category, quantity, createdBy } =
-      req.body;
+    const {
+      name,
+      price,
+      description,
+      category,
+      visibility,
+      quantity,
+      createdBy,
+    } = req.body;
     let productPictures = [];
 
     if (req.files.length > 0) {
@@ -24,6 +31,7 @@ export const createProductController = async (req, res) => {
       description,
       productPictures,
       category,
+      visibility,
       createdBy: req.user._id,
     });
 
@@ -51,7 +59,6 @@ export const getProductController = async (req, res) => {
     const products = await productModel
       .find({})
       .populate("category")
-      .select("-photo")
       .limit(12)
       .sort({ createdAt: -1 });
     res.status(200).send({
@@ -65,6 +72,26 @@ export const getProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in getting products",
+      error,
+    });
+  }
+};
+export const visibleProductController = async (req, res) => {
+  try {
+    const products = await productModel
+      .findOne({ visibility: req.params.buttonid })
+      .populate("category");
+
+    res.status(200).send({
+      success: true,
+      message: "Error in Get Single Products",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Visible",
       error,
     });
   }
@@ -233,7 +260,6 @@ export const productListController = async (req, res) => {
     const page = req.params.page ? req.params.page : 1;
     const products = await productModel
       .find({})
-      .select("-photo")
       .limit(perPage)
       .skip((page - 1) * perPage)
       .sort({ createdAt: -1 });

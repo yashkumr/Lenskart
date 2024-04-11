@@ -6,6 +6,25 @@ import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 
 const SlickSlider = () => {
+  const [category, setCategory] = useState([]);
+  //getAll category
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/category/get-category");
+      console.log(data);
+      if (data?.success) {
+        setCategory(data?.category);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong in category");
+    }
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
   var settings = {
     dots: true,
     infinite: false,
@@ -53,17 +72,21 @@ const SlickSlider = () => {
             style={{ width: "95%", margin: "auto" }}
           >
             <Slider {...settings}>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/1.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Gents Febric</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
+              {category.length > 0
+                ? category.map((c, id) => (
+                    <div className="homeCardSlider">
+                      <img
+                        src={`../../../public/categoryUploads/${c.categoryImage}`}
+                        alt={c.name}
+                      />
+                      <div>
+                      <h4 className="fw-bold" style={{ textAlign:"center", color:"gray"}}> {c.name}</h4>
+                      </div>
+                      
+                    </div>
+                  ))
+                : null}
+              {/* <div className="homeCardSlider">
                 <img
                   src="../../../public/images/PopularCategory/2.jpg"
                   alt="image"
@@ -72,7 +95,8 @@ const SlickSlider = () => {
                   <NavLink> Mens</NavLink>
                   <p>Upto 30% offf</p>
                 </div>
-              </div>
+              </div> */}
+              {/*
               <div className="homeCardSlider">
                 <img
                   src="../../../public/images/PopularCategory/3.webp"
@@ -132,7 +156,8 @@ const SlickSlider = () => {
                   <NavLink> Weomen western Bear</NavLink>
                   <p>Upto 40% offf</p>
                 </div>
-              </div>
+              </div>{" "}
+              */}
             </Slider>
           </div>
         </div>

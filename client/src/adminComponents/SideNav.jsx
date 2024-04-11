@@ -29,7 +29,7 @@ const SideNav = () => {
                 />
               </div>
               <div className="info">
-                <a href="#" className="d-block">
+                <a href="/dashboard/admin" className="d-block">
                   Abhdesh Tomar
                 </a>
               </div>
@@ -58,7 +58,7 @@ const SideNav = () => {
                 role="menu"
                 data-accordion="false"
               >
-                <li className="nav-item menu-open">
+                {/* <li className="nav-item menu-open">
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
                       <a href="/dashboard/admin" className="nav-link ">
@@ -67,7 +67,7 @@ const SideNav = () => {
                       </a>
                     </li>
                   </ul>
-                </li>
+                </li> */}
 
                 {/* <li className="nav-item">
                   <a
@@ -102,6 +102,17 @@ const SideNav = () => {
                     <p>Create eyeGlass</p>
                   </a>
                 </li> */}
+                <li className="nav-item">
+                  <a
+                    href="/dashboard/admin/banner"
+                    className="nav-link"
+                  >
+                    <span className="p-2">
+                      <FaProductHunt />{" "}
+                    </span>
+                    <p>Banner</p>
+                  </a>
+                </li>
 
                 <li className="nav-item">
                   <a
@@ -111,7 +122,7 @@ const SideNav = () => {
                     <span className="p-2">
                       <FaProductHunt />{" "}
                     </span>
-                    <p>Create Category</p>
+                    <p>Category</p>
                   </a>
                 </li>
 
@@ -123,18 +134,18 @@ const SideNav = () => {
                     <span className="p-2">
                       <FaProductHunt />{" "}
                     </span>
-                    <p>Create Products</p>
+                    <p>Products</p>
                   </a>
                 </li>
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a href="/dashboard/admin/products" className="nav-link">
                     <span className="p-2">
                       <FaProductHunt />{" "}
                     </span>
                     <p>Products</p>
                   </a>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
                   <a href="admin/all-users" className="nav-link">

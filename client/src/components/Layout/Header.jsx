@@ -8,6 +8,7 @@ import { FaRegHeart, FaRegUser } from "react-icons/fa";
 import { FaUser, FaHeart, FaCartPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useAuth } from "../../context/Auth.jsx";
+import MenuHeader from "./MenuHeader/index.jsx";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -25,6 +26,7 @@ const Header = () => {
   return (
     <>
       <div className="lence-header ">
+        {/* topbar */}
         <div>
           <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
@@ -181,8 +183,9 @@ const Header = () => {
             </div>
           </nav>
         </div>
+        {/* end bar */}
 
-        {/* topBar */}
+        {/* midBar */}
         <div className="topbar-header">
           <div className="search">
             <form>
@@ -212,10 +215,10 @@ const Header = () => {
           </div>
         </div>
         <div className="links"></div>
-        {/* end topbar */}
+        {/* end midbar */}
 
         {/* navbar */}
-        <div>
+        {/* <div>
           <nav className="navbar navbar-expand-lg ">
             <div className="container wrapper">
               <a className="navbar-brand" href="/">
@@ -304,9 +307,13 @@ const Header = () => {
               </div>
             </div>
           </nav>
-        </div>
+        </div> */}
 
         {/* end navbar */}
+
+        {/* dynamic header */}
+         <MenuHeader/>
+        {/* end dynamic header */}
       </div>
     </>
   );

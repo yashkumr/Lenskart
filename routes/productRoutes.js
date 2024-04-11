@@ -15,12 +15,13 @@ import {
   realtedProductController,
   searchProductController,
   updateProductController,
+  visibleProductController,
 } from "../controllers/productController.js";
 import multer from "multer";
 import shortid from "shortid";
-
 import path from "path";
 import { fileURLToPath } from "url";
+
 
 //ES module fix
 const __filename = fileURLToPath(import.meta.url);
@@ -29,10 +30,10 @@ const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
-
+ console.log(__dirname);
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(path.dirname(__dirname), "uploads"));
+    cb(null, path.join(path.dirname(__dirname), "/client/public/uploads/"));
   },
   filename: function (req, file, cb) {
     cb(null, shortid.generate() + "-" + file.originalname);
@@ -53,6 +54,8 @@ router.post(
 // get product
 router.get("/get-product", getProductController);
 
+// visible product
+router.get("/visible-product/:buttonid", visibleProductController);
 //single product
 router.get("/get-product/:slug", getSingleProductController);
 

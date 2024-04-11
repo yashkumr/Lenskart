@@ -11,16 +11,12 @@ import UserDashboard from "./pages/User/UserDashboard.jsx";
 import UserMenu from "./components/extraComponent/UserMenu.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import AllUser from "./pages/Admin/AllUser.jsx";
-// import Products from "./pages/Admin/Products.jsx";
 import UpdateProducts from "./pages/Admin/UpdateProducts.jsx";
-// import CreateProduct from "./pages/Admin/CreateProduct.jsx";
-import CreateEyeGlass from "./pages/Admin/CreateEyeGlass.jsx";
-import CreateSunGlass from "./pages/Admin/CreateSunGlass.jsx";
-
-import CreateComputerGlass from "./pages/Admin/CreateComputerGlass.jsx";
 
 import Category from "./pages/Admin/Category/index.jsx";
 import Products from "./pages/Admin/Products/index.jsx";
+import HomeBanner from "./pages/Admin/Banner/HomeBanner.jsx";
+import UpdateBanner from "./pages/Admin/Banner/UpdateBanner.jsx";
 
 function App() {
   return (
@@ -30,24 +26,19 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/create-computerGlass" element={<CreateComputerGlass
-          />} />
-          <Route path="admin/create-sunGlass" element={<CreateSunGlass />} />
-          <Route path="admin/create-eyeGlass" element={<CreateEyeGlass />} />
           <Route path="admin/create-product" element={<Products />} />
           <Route path="admin/product/:slug" element={<UpdateProducts />} />
-           {/* <Route path="admin/products" element={<Products />} /> */}
+          <Route path="admin/banner" element={<HomeBanner />} />
           <Route path="admin/all-users" element={<AllUser />} />
-          <Route path ="admin/create-category" element={<Category/>}/>
-          
+          <Route path="admin/create-category" element={<Category />} />
+          <Route path ="admin/banner/update-banner/:slug" element={<UpdateBanner/>}/>
         </Route>
 
         <Route path="/dashboard" element={<UserRoute />}>
           <Route path="user" element={<UserDashboard />} />
-
           <Route path="user/profile" element={<UserMenu />} />
         </Route>
-
+        
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -3,25 +3,23 @@ import mongoose from "mongoose";
 const productSchema = new mongoose.Schema(
   {
     name: {
-      type: String,      
+      type: String,
       trim: true,
     },
     slug: {
       type: String,
-      
+
       unique: true,
     },
     price: {
       type: Number,
-      
     },
     quantity: {
       type: Number,
-      
     },
     description: {
       type: String,
-      
+
       trim: true,
     },
     offer: { type: Number },
@@ -41,11 +39,15 @@ const productSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.ObjectId,
       ref: "User",
-      
+    },
+    visibility: {
+      type: String,
+      required:true,
+      trim: true,
     },
     updatedAt: Date,
 
-    productPictures: [{ img: { type: String } }],
+   
   },
   { timestamps: true }
 );

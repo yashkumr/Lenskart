@@ -15,6 +15,7 @@ function createCategories(categories, parentId = null) {
     categoryList.push({
       _id: cate._id,
       name: cate.name,
+      categoryImage: cate.categoryImage,
       slug: cate.slug,
       parentId: cate.parentId,
       type: cate.type,
@@ -25,7 +26,6 @@ function createCategories(categories, parentId = null) {
   return categoryList;
 }
 //
-
 export const createCategoryController = async (req, res) => {
   try {
     const { name } = req.body;
@@ -46,7 +46,7 @@ export const createCategoryController = async (req, res) => {
     };
 
     if (req.file) {
-      categoryObj.categoryImage = "/public/" + req.file.filename;
+      categoryObj.categoryImage = req.file.filename;
     }
     if (req.body.parentId) {
       categoryObj.parentId = req.body.parentId;
