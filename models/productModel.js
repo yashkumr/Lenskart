@@ -23,6 +23,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },
     offer: { type: Number },
+    categoryImage: { type: String },
 
     productPictures: [{ img: { type: String } }],
 

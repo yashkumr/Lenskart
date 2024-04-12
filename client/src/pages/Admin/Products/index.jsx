@@ -15,6 +15,7 @@ const Products = (props) => {
   const[visibilty, setVisibility] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [productPictures, setProductPictures] = useState([]);
+  const[singleImage, setSingleImage] = useState("");
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
@@ -67,6 +68,7 @@ const Products = (props) => {
     form.append("description", description);
     form.append("category", categoryId);
     form.append("visibility",visibilty);
+    form.append("singleImage",singleImage);
 
     for (let pic of productPictures) {
       form.append("productPicture", pic);
@@ -95,6 +97,10 @@ const Products = (props) => {
 
     return options;
   };
+  const handleSingleImage = (e)=>{
+    setSingleImage(e.target.files[0])
+
+  }
 
   const handleProductPictures = (e) => {
     setProductPictures([...productPictures, e.target.files[0]]);
@@ -213,7 +219,7 @@ const Products = (props) => {
         >
           
 
-          <option>Ready To Wear</option>
+          <option>wear</option>
           <option>unstiched</option>
           <option>bear</option>
           <option>men</option>
@@ -221,6 +227,14 @@ const Products = (props) => {
           <option>kid</option>
           <option>accessories</option>
         </select>
+        <label className="mt-2 ">Visibility</label>
+        <input
+          type="file"
+          
+          name="productPicture"
+          onChange={handleSingleImage}
+        />
+          
         {productPictures.length > 0
           ? productPictures.map((pic, index) => (
               <div key={index}>{pic.name}</div>
@@ -228,6 +242,7 @@ const Products = (props) => {
           : null}
         <input
           type="file"
+          multiple
           name="productPicture"
           onChange={handleProductPictures}
         />

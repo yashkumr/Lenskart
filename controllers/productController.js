@@ -79,7 +79,7 @@ export const getProductController = async (req, res) => {
 export const visibleProductController = async (req, res) => {
   try {
     const products = await productModel
-      .findOne({ visibility: req.params.buttonid })
+      .find({ visibility: req.params.buttonid })
       .populate("category");
 
     res.status(200).send({

@@ -36,6 +36,7 @@ app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/banner", bannerRoutes);
 
+
 app.use("/", (req, res) => {
   res.send("Welcome");
 });

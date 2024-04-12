@@ -47,6 +47,7 @@ router.post(
   requireSignIn,
   isAdmin,
   upload.array("productPicture"),
+  
   createProductController
   
 );

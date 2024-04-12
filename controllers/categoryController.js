@@ -74,24 +74,57 @@ export const createCategoryController = async (req, res) => {
 //update category
 export const updateCategoryController = async (req, res) => {
   try {
-    const { name } = req.body;
-    const { id } = req.params;
-    const category = await categoryModal.findByIdAndUpdate(
-      id,
-      { name, slug: slugify(name) },
-      { new: true }
-    );
-    res.status(200).send({
-      success: true,
-      messsage: "Category Updated Successfully",
-      category,
-    });
+    const { _id, name, parentId, type } = req.body;
+    
+    const updatedCategories = [];
+    if (name instanceof Array) {
+      for (let i = 0; i < name.length; i++) {
+        const category = {
+          name: name[i],
+          type: type[i],
+        };
+        if (parentId[i] !== "") {
+          category.parentId = parentId[i];
+        }
+
+        const updatedCategory = await categoryModal.findOneAndUpdate(
+          { _id: _id[i] },
+          category,
+          { new: true }
+        );
+        updatedCategories.push(updatedCategory);
+      }
+      return res.status(201).send({
+        success: true,
+        message: "Category Updated SuccessFully",
+        updateCategories: updatedCategories,
+      });
+    } else {
+      const category = {
+        name,
+        type,
+      };
+      if (parentId !== "") {
+        category.parentId = parentId;
+      }
+      const updatedCategory = await categoryModal.findOneAndUpdate(
+        { _id },
+        category,
+        {
+          new: true,
+        }
+      );
+      return res.status(201).send({
+        success: true,
+        message: "Category Updated SuccessFully",
+        updatedCategory,
+      });
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(200).send({
       success: false,
-      error,
-      message: "Error while updating category",
+      message: "Error in category controller",
     });
   }
 };
@@ -149,17 +182,33 @@ export const singleCategoryController = async (req, res) => {
 //delete category
 export const deleteCategoryCOntroller = async (req, res) => {
   try {
-    const { id } = req.params;
-    await categoryModal.findByIdAndDelete(id);
-    res.status(200).send({
-      success: true,
-      message: "Categry Deleted Successfully",
-    });
+    
+    const { checkedIdsArray } = req.body;
+    console.log(req.body);
+    console.log("hello");
+    console.log(checkedIdsArray);
+  
+
+
+    const deletedCategories = [];
+    for (let i = 0; i < ids.length; i++) {
+      const deleteCategory = await categoryModal.findOneAndDelete({
+        _id: ids[i]._id,
+        createdBy: req.user._id,
+      });
+      deletedCategories.push(deleteCategory);
+    }
+
+    if (deletedCategories.length == ids.length) {
+      res.status(201).send({success:true, message: "Categories removed" });
+    } else {
+      res.status(400).json({success:false, message: "Something went wrong" });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "error while deleting category",
+      message: "Error in category Controller",
       error,
     });
   }

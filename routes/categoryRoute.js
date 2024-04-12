@@ -39,9 +39,10 @@ router.post(
 
 //update category
 router.put(
-  "/update-category/:id",
+  "/update-category/",
   requireSignIn,
   isAdmin,
+  upload.array("categoryImage"),
   updateCategoryController
 );
 //get all category
@@ -51,6 +52,6 @@ router.get("/get-category", categoryControlller);
 router.get("/single-category/:slug", singleCategoryController);
 
 //delete category
-router.delete("/delete-category/:id", deleteCategoryCOntroller);
+router.delete("/delete-category", deleteCategoryCOntroller);
 
 export default router;

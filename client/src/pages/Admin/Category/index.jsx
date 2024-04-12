@@ -40,7 +40,7 @@ const Category = (props) => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
-     
+
       if (data?.success) {
         setCategory(data?.category);
       }
@@ -74,7 +74,7 @@ const Category = (props) => {
     form.append("categoryImage", categoryImage);
     // dispatch(addCategory(form));
     const { data } = axios.post("/api/v1/category/create-category", form);
-    
+
     if (data?.success) {
       toast.error(data?.message);
     } else {
@@ -122,126 +122,143 @@ const Category = (props) => {
     setCategoryImage(e.target.files[0]);
   };
 
-  // const updateCategory = () => {
-  //   updateCheckedAndExpandedCategories();
-  //   setUpdateCategoryModal(true);
-  // };
+  const updateCategory = () => {
+    updateCheckedAndExpandedCategories();
+    setUpdateCategoryModal(true);
+  };
 
-  // const updateCheckedAndExpandedCategories = () => {
-  //   const categories = createCategoryList(category.categories);
-  //   const checkedArray = [];
-  //   const expandedArray = [];
-  //   checked.length > 0 &&
-  //     checked.forEach((categoryId, index) => {
-  //       const category = categories.find(
-  //         (category, _index) => categoryId == category.value
-  //       );
-  //       category && checkedArray.push(category);
-  //     });
-  //   expanded.length > 0 &&
-  //     expanded.forEach((categoryId, index) => {
-  //       const category = categories.find(
-  //         (category, _index) => categoryId == category.value
-  //       );
-  //       category && expandedArray.push(category);
-  //     });
-  //   setCheckedArray(checkedArray);
-  //   setExpandedArray(expandedArray);
-  // };
+  const updateCheckedAndExpandedCategories = () => {
+    const categories = createCategoryList(category);
+    const checkedArray = [];
+    const expandedArray = [];
+    checked.length > 0 &&
+      checked.forEach((categoryId, index) => {
+        const category = categories.find(
+          (category, _index) => categoryId == category.value
+        );
+        category && checkedArray.push(category);
+      });
+    expanded.length > 0 &&
+      expanded.forEach((categoryId, index) => {
+        const category = categories.find(
+          (category, _index) => categoryId == category.value
+        );
+        category && expandedArray.push(category);
+      });
+    setCheckedArray(checkedArray);
+    setExpandedArray(expandedArray);
+  };
 
-  // const handleCategoryInput = (key, value, index, type) => {
-  //   console.log(value);
-  //   if (type == "checked") {
-  //     const updatedCheckedArray = checkedArray.map((item, _index) =>
-  //       index == _index ? { ...item, [key]: value } : item
-  //     );
-  //     setCheckedArray(updatedCheckedArray);
-  //   } else if (type == "expanded") {
-  //     const updatedExpandedArray = expandedArray.map((item, _index) =>
-  //       index == _index ? { ...item, [key]: value } : item
-  //     );
-  //     setExpandedArray(updatedExpandedArray);
-  //   }
-  // };
+  const handleCategoryInput = (key, value, index, type) => {
+    console.log(value);
+    if (type == "checked") {
+      const updatedCheckedArray = checkedArray.map((item, _index) =>
+        index == _index ? { ...item, [key]: value } : item
+      );
+      setCheckedArray(updatedCheckedArray);
+    } else if (type == "expanded") {
+      const updatedExpandedArray = expandedArray.map((item, _index) =>
+        index == _index ? { ...item, [key]: value } : item
+      );
+      setExpandedArray(updatedExpandedArray);
+    }
+  };
 
-  // const updateCategoriesForm = () => {
-  //   const form = new FormData();
+  const updateCategoriesForm = () => {
+    const form = new FormData();
 
-  //   expandedArray.forEach((item, index) => {
-  //     form.append("_id", item.value);
-  //     form.append("name", item.name);
-  //     form.append("parentId", item.parentId ? item.parentId : "");
-  //     form.append("type", item.type);
-  //   });
-  //   checkedArray.forEach((item, index) => {
-  //     form.append("_id", item.value);
-  //     form.append("name", item.name);
-  //     form.append("parentId", item.parentId ? item.parentId : "");
-  //     form.append("type", item.type);
-  //   });
-  //   dispatch(updateCategories(form));
-  // };
+    expandedArray.forEach((item, index) => {
+      form.append("_id", item.value);
+      form.append("name", item.name);
+      form.append("parentId", item.parentId ? item.parentId : "");
+      form.append("type", item.type);
+    });
+    checkedArray.forEach((item, index) => {
+      form.append("_id", item.value);
+      form.append("name", item.name);
+      form.append("parentId", item.parentId ? item.parentId : "");
+      form.append("type", item.type);
+    });
+    // dispatch(updateCategories(form));
+    const { data } = axios.put("/api/v1/category/update-category", form);
 
-  // const deleteCategory = () => {
-  //   updateCheckedAndExpandedCategories();
-  //   setDeleteCategoryModal(true);
-  // };
+    if (data?.success) {
+      toast.error(data?.message);
+    } else {
+      toast.success("Category Updated Successfully");
+      getAllCategory();
+      setUpdateCategoryModal(false);
 
-  // const deleteCategories = () => {
-  //   const checkedIdsArray = checkedArray.map((item, index) => ({
-  //     _id: item.value,
-  //   }));
-  //   const expandedIdsArray = expandedArray.map((item, index) => ({
-  //     _id: item.value,
-  //   }));
-  //   const idsArray = expandedIdsArray.concat(checkedIdsArray);
+      // navigate("");
+    }
+  };
 
-  //   if (checkedIdsArray.length > 0) {
-  //     dispatch(deleteCategoriesAction(checkedIdsArray)).then((result) => {
-  //       if (result) {
-  //         dispatch(getAllCategory());
-  //         setDeleteCategoryModal(false);
-  //       }
-  //     });
-  //   }
+  const deleteCategory = () => {
+    updateCheckedAndExpandedCategories();
+    setDeleteCategoryModal(true);
+  };
 
-  //   setDeleteCategoryModal(false);
-  // };
+  const deleteCategories = () => {
+    try {
+      const checkedIdsArray = checkedArray.map((item, index) => ({
+        _id: item.value,
+      }));
+      const expandedIdsArray = expandedArray.map((item, index) => ({
+        _id: item.value,
+      }));
+      const idsArray = expandedIdsArray.concat(checkedIdsArray);
 
-  // const renderDeleteCategoryModal = () => {
-  //   return (
-  //     <Modal
-  //       modalTitle="Confirm"
-  //       show={deleteCategoryModal}
-  //       handleClose={() => setDeleteCategoryModal(false)}
-  //       buttons={[
-  //         {
-  //           label: "No",
-  //           color: "primary",
-  //           onClick: () => {
-  //             alert("no");
-  //           },
-  //         },
-  //         {
-  //           label: "Yes",
-  //           color: "danger",
-  //           onClick: deleteCategories,
-  //         },
-  //       ]}
-  //     >
-  //       <h5>Expanded</h5>
-  //       {expandedArray.map((item, index) => (
-  //         <span key={index}>{item.name}</span>
-  //       ))}
-  //       <h5>Checked</h5>
-  //       {checkedArray.map((item, index) => (
-  //         <span key={index}>{item.name}</span>
-  //       ))}
-  //     </Modal>
-  //   );
-  // };
+      // if (checkedIdsArray.length > 0) {
+      // }
+      const { data } = axios.delete("/api/v1/category/delete-category", checkedIdsArray);
+      console.log(data);
 
-     const categoryList = createCategoryList(category);
+      if (data?.success) {
+        toast.success("Category Deleted successfully");
+        setDeleteCategoryModal(false);
+        getAllCategory();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setDeleteCategoryModal(false);
+  };
+
+  const renderDeleteCategoryModal = () => {
+    return (
+      <Modal
+        modalTitle="Confirm"
+        show={deleteCategoryModal}
+        handleClose={() => setDeleteCategoryModal(false)}
+        buttons={[
+          {
+            label: "No",
+            color: "primary",
+            onClick: () => {
+              alert("no");
+            },
+          },
+          {
+            label: "Yes",
+            color: "danger",
+            onClick: deleteCategories,
+          },
+        ]}
+      >
+        <h5>Expanded</h5>
+        {expandedArray.map((item, index) => (
+          <span key={index}>{item.name}</span>
+        ))}
+        <h5>Checked</h5>
+        {checkedArray.map((item, index) => (
+          <span key={index}>{item.name}</span>
+        ))}
+      </Modal>
+    );
+  };
+
+  const categoryList = createCategoryList(category);
 
   return (
     <AdminLayout>
@@ -255,12 +272,12 @@ const Category = (props) => {
                 <button onClick={handleShow}>
                   <IoIosAdd /> <span>Add</span>
                 </button>
-                {/* <button onClick={deleteCategory}>
+                <button onClick={deleteCategory}>
                   <IoIosTrash /> <span>Delete</span>
                 </button>
                 <button onClick={updateCategory}>
                   <IoIosCloudUpload /> <span>Edit</span>
-                </button> */}
+                </button>
               </div>
             </div>
           </Col>
@@ -296,7 +313,7 @@ const Category = (props) => {
         categoryList={categoryList}
         handleCategoryImage={handleCategoryImage}
       />
-      {/* <UpdateCategoriesModal
+      <UpdateCategoriesModal
         show={updateCategoryModal}
         handleClose={() => setUpdateCategoryModal(false)}
         onSubmit={updateCategoriesForm}
@@ -307,8 +324,8 @@ const Category = (props) => {
         handleCategoryInput={handleCategoryInput}
         categoryList={categoryList}
       />
-      
-      {renderDeleteCategoryModal()} */}
+
+      {renderDeleteCategoryModal()}
     </AdminLayout>
   );
 };
