@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../public/customCss/Footer.css"
+import "../../assets/customCss//Footer.css"
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { AiTwotoneMail } from "react-icons/ai";

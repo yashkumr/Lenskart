@@ -3,7 +3,7 @@ import Layout from "../../components/Layout/Layout.jsx";
 import { useAuth } from "../../context/Auth";
 import axios from "axios";
 import UserMenu from "../../components/extraComponent/UserMenu.jsx";
-import "../../../public/css/Register.css";
+import "../../assets/customCss/Register.css";
 const UserOrder = () => {
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();

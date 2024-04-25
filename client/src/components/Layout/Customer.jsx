@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import "../../../public/customCss/Customer.css";
+import "../../assets/customCss/Customer.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
+import  rating from "../../assets/images/Home/user_rating.jpg"
 
 const Customer = () => {
   var settings = {
@@ -62,57 +63,23 @@ const Customer = () => {
                 </p>
                 <div>
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                </div>
-                <div>
-                  {" "}
-                  <span> -</span> <span> Sania Abbasi</span>
-                </div>
-              </div>
-              <div className="CustomerCardSlider">
-                <p>
-                  {" "}
-                  Thank you so much Ideas, I received my parcel today, I am very
-                  satisfied with the online shopping experience! Great stuff and
-                  unmatchable quality.{" "}
-                </p>
-                <div>
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                 </div>
@@ -130,57 +97,23 @@ const Customer = () => {
                 </p>
                 <div>
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                </div>
-                <div>
-                  {" "}
-                  <span> -</span> <span> Sania Abbasi</span>
-                </div>
-              </div>
-              <div className="CustomerCardSlider">
-                <p>
-                  {" "}
-                  Thank you so much Ideas, I received my parcel today, I am very
-                  satisfied with the online shopping experience! Great stuff and
-                  unmatchable quality.{" "}
-                </p>
-                <div>
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                 </div>
@@ -198,57 +131,23 @@ const Customer = () => {
                 </p>
                 <div>
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                </div>
-                <div>
-                  {" "}
-                  <span> -</span> <span> Sania Abbasi</span>
-                </div>
-              </div>
-              <div className="CustomerCardSlider">
-                <p>
-                  {" "}
-                  Thank you so much Ideas, I received my parcel today, I am very
-                  satisfied with the online shopping experience! Great stuff and
-                  unmatchable quality.{" "}
-                </p>
-                <div>
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
-                    alt="image"
-                  />
-                  <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                 </div>
@@ -266,23 +165,23 @@ const Customer = () => {
                 </p>
                 <div>
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                 </div>
@@ -300,23 +199,125 @@ const Customer = () => {
                 </p>
                 <div>
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
                     alt="image"
                   />
                   <img
-                    src="../../../public/images/Home/user_rating.jpg"
+                    src={rating}
+                    alt="image"
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <span> -</span> <span> Sania Abbasi</span>
+                </div>
+              </div>
+              <div className="CustomerCardSlider">
+                <p>
+                  {" "}
+                  Thank you so much Ideas, I received my parcel today, I am very
+                  satisfied with the online shopping experience! Great stuff and
+                  unmatchable quality.{" "}
+                </p>
+                <div>
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <span> -</span> <span> Sania Abbasi</span>
+                </div>
+              </div>
+              <div className="CustomerCardSlider">
+                <p>
+                  {" "}
+                  Thank you so much Ideas, I received my parcel today, I am very
+                  satisfied with the online shopping experience! Great stuff and
+                  unmatchable quality.{" "}
+                </p>
+                <div>
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <span> -</span> <span> Sania Abbasi</span>
+                </div>
+              </div>
+              <div className="CustomerCardSlider">
+                <p>
+                  {" "}
+                  Thank you so much Ideas, I received my parcel today, I am very
+                  satisfied with the online shopping experience! Great stuff and
+                  unmatchable quality.{" "}
+                </p>
+                <div>
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
+                    alt="image"
+                  />
+                  <img
+                    src={rating}
                     alt="image"
                   />
                 </div>

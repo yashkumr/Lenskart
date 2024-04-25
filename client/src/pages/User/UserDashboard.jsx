@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../public/customCss/UserDashboard.css";
+import "../../assets/customCss/UserDashboard.css";
 import { useAuth } from "../../context/Auth";
 import Layout from "../../components/Layout/Layout.jsx";
 import UserMenu from "../../components/extraComponent/UserMenu.jsx";

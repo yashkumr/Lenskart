@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
 import axios from "axios";
-import "../../../public/css/Register.css"
 import Layout from "../../components/Layout/Layout.jsx";
 import UserMenu from "../../components/extraComponent/UserMenu.jsx";
+import { useAuth } from "../../context/Auth.jsx";
 const UserProfile = () => {
   //context
   const [auth, setAuth] = useAuth();

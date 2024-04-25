@@ -1,5 +1,5 @@
-import React from "react";
-import "../../../public/customCss/Header.css";
+import React, { useEffect } from "react";
+import "../../assets/customCss/Header.css";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaMessage } from "react-icons/fa6";
@@ -9,9 +9,20 @@ import { FaUser, FaHeart, FaCartPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useAuth } from "../../context/Auth.jsx";
 import MenuHeader from "./MenuHeader/index.jsx";
+import { CiHeart, CiShoppingCart } from "react-icons/ci";
+import main_logo from "../../assets/images/Header/main_logo.svg"
+import newtollnumber from "../../assets/images/Header/new-toll-number.webp"
+import { useDispatch, useSelector } from "react-redux";
+import { getCartTotal } from "../../features/cartSlice.jsx";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+
+  const { cart, totalQuantity } = useSelector((state) => state.allCart);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartTotal());
+  }, [cart]);
 
   const handleLogout = () => {
     setAuth({
@@ -185,38 +196,45 @@ const Header = () => {
         </div>
         {/* end bar */}
 
-        {/* midBar */}
-        <div className="topbar-header">
-          <div className="search">
-            <form>
-              <input type="text" placeholder="Pakistan & Other Company" />
-              <span className="input-icon">
-                <button className="" type="submit">
-                  <IoMdArrowDropdown />
-                </button>{" "}
-              </span>
-            </form>
-          </div>
+        {/* search with header */}
+        <div className="searchHeader">
           <div className="logo">
-            <NavLink>
-              <img src="../../../public/images/Header/ideas.png" />
+            <NavLink className="main-logo" to="/">
+              <img src={main_logo} />
+            </NavLink>
+            <NavLink className="main-logo">
+              <img src={newtollnumber} />
             </NavLink>
           </div>
-
           <div className="search">
             <form>
-              <input type="text" placeholder="Search " />
-              <span className="input-icon">
-                <button className="" type="submit">
-                  <CiSearch />{" "}
-                </button>{" "}
-              </span>
+              <input type="text" placeholder="what are you looking for ?" />
             </form>
           </div>
+          <div className="icons">
+            <NavLink className="icon">Track Order</NavLink>
+            <NavLink className="icon" >
+              Sign In Sigb Up
+            </NavLink>
+            <NavLink className="icon">
+              <span>
+                <CiHeart />
+              </span>
+              Wishlist{" "}
+            </NavLink>
+            {/* <NavLink className="icon">
+              <span>
+                <CiShoppingCart />
+              </span>
+              Cart
+            </NavLink> */}
+            <Link to="/cart">
+                    {" "}
+                    <CiShoppingCart /> <span> ({totalQuantity})</span>
+                  </Link>
+          </div>
         </div>
-        <div className="links"></div>
-        {/* end midbar */}
-
+        {/* search with header */}
         {/* navbar */}
         {/* <div>
           <nav className="navbar navbar-expand-lg ">

@@ -6,16 +6,17 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import "./style.css";
 import AdminLayout from "../../../adminComponents/AdminLayout";
+import { Link } from "react-router-dom";
 
 const Products = (props) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const[visibilty, setVisibility] = useState("");
+  const [visibilty, setVisibility] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [productPictures, setProductPictures] = useState([]);
-  const[singleImage, setSingleImage] = useState("");
+
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
@@ -67,8 +68,7 @@ const Products = (props) => {
     form.append("price", price);
     form.append("description", description);
     form.append("category", categoryId);
-    form.append("visibility",visibilty);
-    form.append("singleImage",singleImage);
+    form.append("visibility", visibilty);
 
     for (let pic of productPictures) {
       form.append("productPicture", pic);
@@ -97,13 +97,26 @@ const Products = (props) => {
 
     return options;
   };
-  const handleSingleImage = (e)=>{
-    setSingleImage(e.target.files[0])
-
-  }
 
   const handleProductPictures = (e) => {
     setProductPictures([...productPictures, e.target.files[0]]);
+  };
+
+  // delete category
+  const handleDelete = async (pId) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/v1/product/delete-product/${pId}`
+      );
+
+      if (data?.success) {
+        toast.success("Category Deleted successfully");
+        getAllProducts();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong in delete categroy");
+    }
   };
 
   const renderProducts = () => {
@@ -141,16 +154,26 @@ const Products = (props) => {
                       ))}
                     </div>
                   </td> */}
+
                   <td>
-                    <button onClick={() => showProductDetailsModal(product)}>
+                    <button
+                      onClick={() => showProductDetailsModal(product)}
+                      className="p-1 btn btn-primary"
+                    >
                       info
                     </button>
+                    <button className="p-1 btn btn-warning m-1">
+                      <Link
+                        key={product._id}
+                        to={`/dashboard/admin/update-product/${product.slug}`}
+                      >
+                        Edit
+                      </Link>
+                    </button>
                     <button
+                      className="p-1 btn btn-danger"
                       onClick={() => {
-                        const payload = {
-                          productId: product._id,
-                        };
-                        // dispatch(deleteProductById(payload));
+                        handleDelete(product._id);
                       }}
                     >
                       del
@@ -196,29 +219,25 @@ const Products = (props) => {
           placeholder={`Description`}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <select
-          className="form-control mt-2"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-        >
-          <option>select category</option>
-          {createCategoryList(category).map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.name}
-            </option>
-          ))}
-        </select>
+          <select
+            className="form-control mt-2"
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+          >
+            <option>select category</option>
+            {createCategoryList(category).map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </select>
 
-
-           <label className="mt-2 ">Visibility</label>
+        <label className="mt-2 ">Visibility</label>
         <select
-        
           className="form-control  mb-2 "
           value={visibilty}
           onChange={(e) => setVisibility(e.target.value)}
         >
-          
-
           <option>wear</option>
           <option>unstiched</option>
           <option>bear</option>
@@ -227,14 +246,7 @@ const Products = (props) => {
           <option>kid</option>
           <option>accessories</option>
         </select>
-        <label className="mt-2 ">Visibility</label>
-        <input
-          type="file"
-          
-          name="productPicture"
-          onChange={handleSingleImage}
-        />
-          
+
         {productPictures.length > 0
           ? productPictures.map((pic, index) => (
               <div key={index}>{pic.name}</div>
@@ -324,7 +336,9 @@ const Products = (props) => {
           <Col md={12}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h3>Products</h3>
-              <button onClick={handleShow}>Add</button>
+              <button onClick={handleShow} className="btn btn-primary">
+                Add
+              </button>
             </div>
           </Col>
         </Row>

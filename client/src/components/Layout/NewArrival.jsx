@@ -1,6 +1,6 @@
 import React, { useState, useEffect,Fragment } from "react";
 import Slider from "react-slick";
-import "../../../public/customCss/NewArrival.css";
+import "../../assets/customCss/NewArrival.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
@@ -107,13 +107,13 @@ const NewArrival = () => {
                     <div className="homeCardSlider">
                       {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
 
-                      {val.productPictures.map((picture) => (
-                        <div className="productImgContainer">
+                      {val.mainImages.map((picture) => (
+                       
                           <img
                             src={`../../../public/uploads/${picture.img}`}
                             alt="images"
                           />
-                        </div>
+                        
                       ))}
                       <div>
                         <NavLink className="text-start">{val?.name}</NavLink>

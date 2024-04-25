@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment} from "react";
 import Slider from "react-slick";
-import "../../../public/customCss/Trending.css";
+import "../../assets/customCss/Trending.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink ,useParams} from "react-router-dom";
@@ -86,13 +86,13 @@ const Trending = () => {
                     <div className="homeCardSlider">
                       {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
 
-                      {val.productPictures.map((picture) => (
-                        <div className="productImgContainer">
+                      {val.mainImages.map((picture) => (
+                        
                           <img
                             src={`../../../public/uploads/${picture.img}`}
                             alt="images"
                           />
-                        </div>
+                      
                       ))}
                       <div>
                         <NavLink>{val?.name}</NavLink>
@@ -101,79 +101,7 @@ const Trending = () => {
                   </Fragment>
                 );
               })}
-              {/* <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/1.webp" alt="image" />
-                <div>
-                  <NavLink> Gents Febric</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/2.jpg" alt="image" />
-                <div>
-                  <NavLink> Mens</NavLink>
-                  <p>Upto 30% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/3.jpg" alt="image" />
-                <div>
-                  <NavLink> Pillow</NavLink>
-                  <p>Upto 50% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/4.webp" alt="image" />
-                <div>
-                  <NavLink> Girls Febric</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/5.webp" alt="image" />
-                <div>
-                  <NavLink> Gents Febric</NavLink>
-                  <p>Upto 80% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/6.jpg" alt="image" />
-                <div>
-                  <NavLink> Towel</NavLink>
-                  <p>Upto 70% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/7.webp" alt="image" />
-                <div>
-                  <NavLink> Boys Shirt</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/8.webp" alt="image" />
-                <div>
-                  <NavLink> Weomen western Bear</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/Trending/9.webp" alt="image" />
-                <div>
-                  <NavLink> Weomen western Bear</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/Trending/11.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Weomen western Bear</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div> */}
+              
             </Slider>
           </div>
         </div>

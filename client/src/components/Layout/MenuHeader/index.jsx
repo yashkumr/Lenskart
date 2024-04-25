@@ -2,17 +2,10 @@ import React, { useEffect,useState} from "react";
 import "./style.css";
 import axios from "axios"
 import toast from "react-hot-toast"
-// import { useSelector, useDispatch } from "react-redux";
-// import { getAllCategory } from "../../actions";
 
-/**
- * @author
- * @function MenuHeader
- **/
 
 const MenuHeader = (props) => {
-  // const category = useSelector((state) => state.category);
-  // const dispatch = useDispatch();
+  
   const [category, setCategory] = useState([]);
 
   const getAllCategory = async () => {
@@ -32,9 +25,6 @@ const MenuHeader = (props) => {
     getAllCategory();
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(getAllCategory());
-  // }, []);
 
   const renderCategories = (categories) => {
     let myCategories = [];

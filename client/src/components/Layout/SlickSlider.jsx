@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import "../../../public/customCss/SlickSlider.css";
+import "../../assets/customCss/SlickSlider.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";

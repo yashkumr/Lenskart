@@ -1,4 +1,8 @@
-import React from 'react'
+import React from "react";
+import lence3 from "../../assets/images/Peyush/lence3.webp";
+import lence2 from "../../assets/images/Peyush/lence2.webp";
+import lence4 from "../../assets/images/Peyush/lence4.webp";
+import lence5 from "../../assets/images/Peyush/lence5.webp";
 
 const Namita = () => {
   return (
@@ -13,23 +17,23 @@ const Namita = () => {
       </div>
       <div className="peyush">
         <div>
-          <img src="../../../public/images/Namita/lence5.webp" />
+          <img src={lence3} />
         </div>
         <div>
-          <img src="../../../public/images/Namita/lence2.webp" />
+          <img src={lence2} />
         </div>
         <div>
-          <img src="../../../public/images/Namita/lence3.webp" />
+          <img src={lence4} />
         </div>
         <div>
-          <img src="../../../public/images/Namita/lence4.webp" />
+          <img src={lence5} />
         </div>
         <div>
-          <img src="../../../public/images/Namita/lence5.webp" />
+          <img src={lence2} />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Namita
+export default Namita;

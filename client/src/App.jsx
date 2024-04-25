@@ -8,14 +8,19 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import AdminRoute from "./Routes/AdminRoute.jsx";
 import UserRoute from "./Routes/UserRoute.jsx";
 import UserDashboard from "./pages/User/UserDashboard.jsx";
-import UserMenu from "./components/extraComponent/UserMenu.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
-import AllUser from "./pages/Admin/AllUser.jsx";
 
 import Category from "./pages/Admin/Category/index.jsx";
 import Products from "./pages/Admin/Products/index.jsx";
 import HomeBanner from "./pages/Admin/Banner/HomeBanner.jsx";
 import UpdateBanner from "./pages/Admin/Banner/UpdateBanner.jsx";
+import UpdateProduct from "./pages/Admin/Products/UpdateProduct.jsx";
+import UserProfile from "./pages/User/UserProfile.jsx";
+import AllUser from "./pages/Admin/User/AllUser.jsx";
+import ProductListPage from "./pages/ProductListPage/index.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
+import CartPage from "./pages/CartPage.jsx";
+import Shipping from "./pages/Shipping.jsx";
 
 function App() {
   return (
@@ -23,10 +28,18 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:slug" element={<ProductListPage />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/shipping" element={<Shipping />} />
+
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/create-product" element={<Products />} />
-
+          <Route
+            path="admin/update-product/:slug"
+            element={<UpdateProduct />}
+          />
           <Route path="admin/banner" element={<HomeBanner />} />
           <Route path="admin/all-users" element={<AllUser />} />
           <Route path="admin/create-category" element={<Category />} />
@@ -38,7 +51,8 @@ function App() {
 
         <Route path="/dashboard" element={<UserRoute />}>
           <Route path="user" element={<UserDashboard />} />
-          <Route path="user/profile" element={<UserMenu />} />
+
+          <Route path="user/profile" element={<UserProfile />} />
         </Route>
 
         <Route path="/register" element={<Register />} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../../public/customCss/GridIcons.css"
+import "../../assets/customCss/GridIcons.css"
 
 
 

@@ -54,11 +54,6 @@ const Category = (props) => {
     getAllCategory();
   }, []);
 
-  // useEffect(() => {
-  //   if (!category.loading) {
-  //     setShow(false);
-  //   }
-  // }, [category.loading]);
 
   const handleClose = () => {
     const form = new FormData();

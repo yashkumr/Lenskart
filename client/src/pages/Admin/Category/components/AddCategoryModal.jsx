@@ -46,6 +46,7 @@ const AddCategoryModal = (props) => {
                         }
                     </select>
                 </Col>
+                
             </Row>
             <Row>
                 <Col>

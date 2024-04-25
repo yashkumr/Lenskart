@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/Auth.jsx";
 import Layout from "../../components/Layout/Layout.jsx";
-import "../../../public/customCss/Login.css";
+import "../../assets/customCss/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -93,8 +93,8 @@ const Login = () => {
                       </button>
                     </div>
                     <div className="col-md-6 p-1 login-back d-flex">
-                      <button type="submit" className=" rounded-0">
-                        <Link to="/">Forgot Password</Link>
+                      <button className=" rounded-0">
+                        <Link to="/forgot-password">Forgot Password</Link>
                       </button>
                     </div>
                   </div>

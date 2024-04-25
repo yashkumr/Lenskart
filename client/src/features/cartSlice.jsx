@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const items =
   localStorage.getItem("cart") != null
     ? JSON.parse(localStorage.getItem("cart"))
@@ -25,7 +24,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      let find = state.cart.findIndex((item) => item._id === action.payload._id);
+      let find = state.cart.findIndex(
+        (item) => item._id === action.payload._id
+      );
       if (find >= 0) {
         state.cart[find].quantity += 1;
       } else {

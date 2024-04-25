@@ -1,5 +1,7 @@
 import React from "react";
 import { FaRegUser, FaRegUserCircle, FaProductHunt } from "react-icons/fa";
+import AdminLTELogo from "../assets/dists/img/AdminLTELogo.png"
+import user2 from "../assets/dists/img/user2-160x160.jpg"
 
 const SideNav = () => {
   return (
@@ -10,7 +12,7 @@ const SideNav = () => {
           {/* Brand Logo */}
           <a href="#  " className="brand-link">
             <img
-              src="../../public/dists/img/AdminLTELogo.png"
+              src={AdminLTELogo}
               alt="AdminLTE Logo"
               className="brand-image img-circle elevation-3"
               style={{ opacity: ".8" }}
@@ -23,7 +25,7 @@ const SideNav = () => {
             <div className="user-panel mt-3 pb-3 mb-3 d-flex">
               <div className="image">
                 <img
-                  src="../../public/dists/img/user2-160x160.jpg"
+                  src={user2}
                   className="img-circle elevation-2"
                   alt="User Image"
                 />
@@ -137,34 +139,28 @@ const SideNav = () => {
                     <p>Products</p>
                   </a>
                 </li>
-
-                {/* <li className="nav-item">
-                  <a href="/dashboard/admin/products" className="nav-link">
+                <li className="nav-item">
+                  <a
+                    href="/dashboard/admin/all-users"
+                    className="nav-link"
+                  >
                     <span className="p-2">
                       <FaProductHunt />{" "}
                     </span>
-                    <p>Products</p>
-                  </a>
-                </li> */}
-
-                <li className="nav-item">
-                  <a href="admin/all-users" className="nav-link">
-                    <span className="p-2">
-                      {" "}
-                      <FaRegUser />
-                    </span>
-                    <p>All Users</p>
+                    <p>Users</p>
                   </a>
                 </li>
 
-                <li className="nav-item">
-                  <a href="admin/orders" className="nav-link">
+              
+
+                {/* <li className="nav-item">
+                  <a href="/dashboard/admin/orders" className="nav-link">
                     <span className="p-2">
                       <FaRegUserCircle />
                     </span>
                     <p>All Orders</p>
                   </a>
-                </li>
+                </li> */}
               </ul>
             </nav>
             {/* /.sidebar-menu */}

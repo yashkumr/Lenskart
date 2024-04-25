@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../public/customCss/Circle.css"
+import "../../assets/customCss/Circle.css"
 
 const Circle = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
-import "../../../public/customCss/NewOnSale.css";
+import "../../assets/customCss/NewOnSale.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
@@ -21,10 +21,10 @@ export default function NewOnSale() {
       console.log(error);
     }
   };
-  
-  useEffect(()=>{
-      handleButtonClick("western");
-  },[])
+
+  useEffect(() => {
+    handleButtonClick("western");
+  }, []);
 
   var settings = {
     dots: true,
@@ -76,7 +76,7 @@ export default function NewOnSale() {
           >
             Western
           </button>
-           <button
+          <button
             className={activeButton === "men" ? "active" : "sale-tab-button"}
             onClick={() => handleButtonClick("men")}
           >
@@ -88,11 +88,35 @@ export default function NewOnSale() {
           >
             Kids
           </button>
-          <button className={activeButton === "accessories" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("accessories")}>Accessories</button> 
-           <button className={activeButton === "unstiched" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("unstiched")}>Unstiched</button> 
-           <button className={activeButton === "home" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("home")}>Home</button> 
-            <button className={activeButton === "bear" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("bear")}> Ready To Bear</button>
-
+          <button
+            className={
+              activeButton === "accessories" ? "active" : "sale-tab-button"
+            }
+            onClick={() => handleButtonClick("accessories")}
+          >
+            Accessories
+          </button>
+          <button
+            className={
+              activeButton === "unstiched" ? "active" : "sale-tab-button"
+            }
+            onClick={() => handleButtonClick("unstiched")}
+          >
+            Unstiched
+          </button>
+          <button
+            className={activeButton === "home" ? "active" : "sale-tab-button"}
+            onClick={() => handleButtonClick("home")}
+          >
+            Home
+          </button>
+          <button
+            className={activeButton === "bear" ? "active" : "sale-tab-button"}
+            onClick={() => handleButtonClick("bear")}
+          >
+            {" "}
+            Ready To Bear
+          </button>
         </div>
 
         <div style={{ backgroundColor: "rgb(233 233 233)" }}>
@@ -107,13 +131,11 @@ export default function NewOnSale() {
                     <div className="homeCardSlider">
                       {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
 
-                      {val.productPictures.map((picture) => (
-                        <div className="productImgContainer">
-                          <img
-                            src={`../../../public/uploads/${picture.img}`}
-                            alt="images"
-                          />
-                        </div>
+                      {val.mainImages.map((picture) => (
+                        <img
+                          src={`../../../public/uploads/${picture.img}`}
+                          alt="images"
+                        />
                       ))}
                       <div>
                         <NavLink className="text-start">{val?.name}</NavLink>
