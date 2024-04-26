@@ -16,14 +16,13 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 connectDB();
-
+export const app = express();
 //ES module fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const app = express();
-
-app.use(express.static('public'));
+const buildpath = path.join(__dirname, "../client/dist")
+app.use(express.static(buildpath));
 //middleware
 app.use(cors());
 app.use(express.json());
