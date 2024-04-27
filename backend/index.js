@@ -28,7 +28,7 @@ app.use(express.static(buildpath));
 //middleware
 app.use(cors());
 app.use(cors({
-  origin: 'http://13.200.255.55:8000',
+  origin: 'http://35.154.168.128:8000',
   credentials: true,  // enable set cookie
 }));
 app.use(express.json());
