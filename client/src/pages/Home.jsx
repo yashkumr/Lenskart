@@ -27,7 +27,7 @@ const Home = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong in sunglass");
+      
     }
   };
   useEffect(() => {

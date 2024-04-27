@@ -17,6 +17,8 @@ import { fileURLToPath } from "url";
 dotenv.config();
 connectDB();
 export const app = express();
+
+app.use(express.static('uploads'));
 //ES module fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,9 +38,9 @@ app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/banner", bannerRoutes);
 
 
-app.use("/", (req, res) => {
-  res.send("Welcome");
-});
+// app.use("/", (req, res) => {
+//   res.send("Welcome");
+// });
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {

@@ -110,7 +110,7 @@ const NewArrival = () => {
                       {val.mainImages.map((picture) => (
                        
                           <img
-                            src={`../../../public/uploads/${picture.img}`}
+                            src={`http://localhost:8000/${picture.img}`}
                             alt="images"
                           />
                         
@@ -122,64 +122,7 @@ const NewArrival = () => {
                   </Fragment>
                 );
               })}
-              {/* <div className="homeCardSlider">
-                <img src="../../../public/images/NewOnSale/2.jpg" alt="image" />
-                <div>
-                  <NavLink> Mens</NavLink>
-                  <p>Upto 30% offf</p>
-                </div>
-              </div> */}
-              {/* <div className="homeCardSlider">
-                <img src="../../../public/images/NewOnSale/3.jpg" alt="image" />
-                <div>
-                  <NavLink> Pillow</NavLink>
-                  <p>Upto 50% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/NewOnSale/4.jpg" alt="image" />
-                <div>
-                  <NavLink> Girls Febric</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/NewOnSale/5.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Gents Febric</NavLink>
-                  <p>Upto 80% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/NewOnSale/6.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Towel</NavLink>
-                  <p>Upto 70% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/NewOnSale/7.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Boys Shirt</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img src="../../../public/images/NewOnSale/8.jpg" alt="image" />
-                <div>
-                  <NavLink> Weomen western Bear</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div> */}
+              
             </Slider>
           </div>
         </div>

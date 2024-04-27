@@ -76,7 +76,7 @@ const SlickSlider = () => {
                 ? category.map((c, id) => (
                     <div className="homeCardSlider">
                       <img
-                        src={`../../../public/categoryUploads/${c.categoryImage}`}
+                        src={`http://localhost:8000/${c.categoryImage}`}
                         alt={c.name}
                       />
                       <div>
@@ -86,78 +86,7 @@ const SlickSlider = () => {
                     </div>
                   ))
                 : null}
-              {/* <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/2.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Mens</NavLink>
-                  <p>Upto 30% offf</p>
-                </div>
-              </div> */}
-              {/*
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/3.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Pillow</NavLink>
-                  <p>Upto 50% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/4.webp"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Girls Febric</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/5.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Gents Febric</NavLink>
-                  <p>Upto 80% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/6.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Towel</NavLink>
-                  <p>Upto 70% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/7.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Boys Shirt</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>
-              <div className="homeCardSlider">
-                <img
-                  src="../../../public/images/PopularCategory/8.jpg"
-                  alt="image"
-                />
-                <div>
-                  <NavLink> Weomen western Bear</NavLink>
-                  <p>Upto 40% offf</p>
-                </div>
-              </div>{" "}
-              */}
+              
             </Slider>
           </div>
         </div>
