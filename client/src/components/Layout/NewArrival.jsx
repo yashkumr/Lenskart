@@ -2,8 +2,8 @@ import React, { useState, useEffect,Fragment } from "react";
 import Slider from "react-slick";
 import "../../assets/customCss/NewArrival.css";
 import axios from "axios";
-import toast from "react-hot-toast";
-import { Link, NavLink } from "react-router-dom";
+
+import {  NavLink } from "react-router-dom";
 
 const NewArrival = () => {
 
@@ -108,11 +108,14 @@ const NewArrival = () => {
                       {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
 
                       {val.mainImages.map((picture) => (
+                        <>
+                        
                        
                           <img
                             src={`http://localhost:8000/${picture.img}`}
                             alt="images"
                           />
+                          </>
                         
                       ))}
                       <div>

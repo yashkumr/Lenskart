@@ -1,13 +1,13 @@
-import React, { useState, useEffect, Fragment} from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
 import "../../assets/customCss/Trending.css";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link, NavLink ,useParams} from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 const Trending = () => {
   const [trendingButton, setTrendingButton] = useState("trending");
-  const[trendingProducts, setTrendingProducts] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
 
   const handleButtonClick = async (buttonId) => {
     try {
@@ -21,10 +21,10 @@ const Trending = () => {
       console.log(error);
     }
   };
-  
-  useEffect(()=>{
-      handleButtonClick("trending");
-  },[])
+
+  useEffect(() => {
+    handleButtonClick("trending");
+  }, []);
   var settings = {
     dots: true,
     infinite: false,
@@ -65,14 +65,7 @@ const Trending = () => {
         <div className="homeCardSlider-top mt-5">
           <h1> TRENDING</h1>
         </div>
-        {/* <button
-            className={
-              trendingButton === "trending" ? "active" : "sale-tab-button"
-            }
-            onClick={() => handleButtonClick("trending")}
-          >
-            Western
-          </button> */}
+        
 
         <div style={{ backgroundColor: "rgb(233 233 233)" }}>
           <div
@@ -80,19 +73,17 @@ const Trending = () => {
             style={{ width: "90%", margin: "auto" }}
           >
             <Slider {...settings}>
-            {trendingProducts.map((val, index) => {
+              {trendingProducts.map((val, index) => {
                 return (
                   <Fragment key={index}>
                     <div className="homeCardSlider">
-                      {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
-
                       {val.mainImages.map((picture) => (
-                        
+                        <>
                           <img
-                            src={`http://localhost:8000/${picture.img}`}
+                            src={`http://13.235.50.9:8000/${picture.img}`}
                             alt="images"
                           />
-                      
+                        </>
                       ))}
                       <div>
                         <NavLink>{val?.name}</NavLink>
@@ -101,7 +92,6 @@ const Trending = () => {
                   </Fragment>
                 );
               })}
-              
             </Slider>
           </div>
         </div>

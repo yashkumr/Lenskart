@@ -129,12 +129,13 @@ export default function NewOnSale() {
                 return (
                   <Fragment key={index}>
                     <div className="homeCardSlider">
-
                       {val.mainImages.map((picture) => (
-                        <img
-                          src={`http://localhost:8000/${picture.img}`}
-                          alt="images"
-                        />
+                        <>
+                          <img
+                            src={`http://localhost:8000/${picture.img}`}
+                            alt="images"
+                          />
+                        </>
                       ))}
                       <div>
                         <NavLink className="text-start">{val?.name}</NavLink>
@@ -143,7 +144,6 @@ export default function NewOnSale() {
                   </Fragment>
                 );
               })}
-              
             </Slider>
           </div>
         </div>

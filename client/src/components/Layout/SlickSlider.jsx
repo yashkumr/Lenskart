@@ -74,9 +74,11 @@ const SlickSlider = () => {
             <Slider {...settings}>
               {category.length > 0
                 ? category.map((c, id) => (
+                    <>
+                    
                     <div className="homeCardSlider">
                       <img
-                        src={`http://35.154.168.128:8000/${c.categoryImage}`}
+                        src={`http://localhost:8000/${c.categoryImage}`}
                         alt={c.name}
                       />
                       <div>
@@ -84,6 +86,8 @@ const SlickSlider = () => {
                       </div>
                       
                     </div>
+                    </>
+
                   ))
                 : null}
               
