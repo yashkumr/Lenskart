@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import bill from "../assets/images/Home/bill.webp";
 import zero from "../assets/images/Home/zero.webp";
 import { useSelector, useDispatch } from "react-redux";
-import { GoPlus, } from "react-icons/go";
+import { GoPlus } from "react-icons/go";
 import { HiMinusSmall } from "react-icons/hi2";
 import { FaRegTrashAlt } from "react-icons/fa";
 import {
@@ -39,86 +39,92 @@ const CartPage = () => {
 
             <div className="XgzsV p-2">
               {cart?.map((data, id) => (
-                <div>
-                  <div className="dtjBcJ p-2">
-                    <NavLink>
-                      {data.mainImages.map((picture) => (
-                        <img
-                          src={`../../../public/uploads/${picture.img}`}
-                          alt="images"
-                        />
-                      ))}
-                    </NavLink>
-                    <div>
-                      <div className="ezTXEY">
-                        <div className="bil-para">{data.name}</div>
-
-                        <div>Rs-1700</div>
-                      </div>
-
-                      <div className="eQSjIx">
-                        <div>Final Price</div>
-                        <div>
-                          <span>Rs:</span>
-                          <span>5100</span>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="lence-indc">
-                        <div className="lence-indc-button">
-                          <div className="">
-                            <div className="lence-indc-button-gap mb-">
-                              <button
-                                className="cart-button"
-                                onClick={
-                                  data.quantity <= 1
-                                    ? 1
-                                    : () =>
-                                        dispatch(decreaseItemQuantity(data._id))
-                                }
-                              >
-                                <span><HiMinusSmall /></span>
-                              </button>
-
-                              <div className="cart-input">
-                                <input
-                                  name="quantity"
-                                  readOnly
-                                  value={data.quantity}
-                                  type="number"
-                                  className=" text-center "
-                                  onChange={() => null}
-                                />
-                              </div>
-
-                              <button
-                                className="cart-button "
-                                onClick={() =>
-                                  dispatch(increaseItemQuantity(data._id))
-                                }
-                              >
-                                <span><GoPlus /></span>
-                              </button>
-                            </div>
-                            
-                          </div>
-                          
-                        </div>
-                      </div>
+                <>
+                  <div>
+                    <div className="dtjBcJ p-2">
+                      <NavLink>
+                        {data.mainImages.map((picture) => (
+                          <img
+                            src={`http://localhost:8000/${picture.img}`}
+                            alt="images"
+                          />
+                        ))}
+                      </NavLink>
                       <div>
-                              <button
-                                type="button"
-                                className="cart-remove-button"
-                                data-mdb-toggle="tooltip"
-                                title="Remove item"
-                                onClick={() => dispatch(removeItem(data._id))}
-                              >
-                                <FaRegTrashAlt />
-                              </button>
+                        <div className="ezTXEY">
+                          <div className="bil-para">{data.name}</div>
+
+                          <div>Rs-1700</div>
+                        </div>
+
+                        <div className="eQSjIx">
+                          <div>Final Price</div>
+                          <div>
+                            <span>Rs:</span>
+                            <span>5100</span>
+                          </div>
+                        </div>
+                        <hr />
+                        <div className="lence-indc">
+                          <div className="lence-indc-button">
+                            <div className="">
+                              <div className="lence-indc-button-gap mb-">
+                                <button
+                                  className="cart-button"
+                                  onClick={
+                                    data.quantity <= 1
+                                      ? 1
+                                      : () =>
+                                          dispatch(
+                                            decreaseItemQuantity(data._id)
+                                          )
+                                  }
+                                >
+                                  <span>
+                                    <HiMinusSmall />
+                                  </span>
+                                </button>
+
+                                <div className="cart-input">
+                                  <input
+                                    name="quantity"
+                                    readOnly
+                                    value={data.quantity}
+                                    type="number"
+                                    className=" text-center "
+                                    onChange={() => null}
+                                  />
+                                </div>
+
+                                <button
+                                  className="cart-button "
+                                  onClick={() =>
+                                    dispatch(increaseItemQuantity(data._id))
+                                  }
+                                >
+                                  <span>
+                                    <GoPlus />
+                                  </span>
+                                </button>
+                              </div>
                             </div>
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            className="cart-remove-button"
+                            data-mdb-toggle="tooltip"
+                            title="Remove item"
+                            onClick={() => dispatch(removeItem(data._id))}
+                          >
+                            <FaRegTrashAlt />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </>
               ))}
             </div>
           </div>
