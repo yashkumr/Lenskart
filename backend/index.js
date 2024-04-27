@@ -27,6 +27,10 @@ const buildpath = path.join(__dirname, "../client/dist")
 app.use(express.static(buildpath));
 //middleware
 app.use(cors());
+app.use(cors({
+  origin: 'http://13.200.255.55:8000',
+  credentials: true,  // enable set cookie
+}));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
