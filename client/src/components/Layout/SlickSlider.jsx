@@ -5,6 +5,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 
+import { SITE_URL } from "../../../constant.js";
+
 const SlickSlider = () => {
   const [category, setCategory] = useState([]);
   //getAll category
@@ -75,22 +77,24 @@ const SlickSlider = () => {
               {category.length > 0
                 ? category.map((c, id) => (
                     <>
-                    
-                    <div className="homeCardSlider">
-                      <img
-                        src={`http://35.154.206.192:8000/${c.categoryImage}`}
-                        alt={c.name}
-                      />
-                      <div>
-                      <h4 className="fw-bold" style={{ textAlign:"center", color:"gray"}}> {c.name}</h4>
+                      <div className="homeCardSlider">
+                        <img
+                          src={`${SITE_URL}${c.categoryImage}`}
+                          alt={c.name}
+                        />
+                        <div>
+                          <h4
+                            className="fw-bold"
+                            style={{ textAlign: "center", color: "gray" }}
+                          >
+                            {" "}
+                            {c.name}
+                          </h4>
+                        </div>
                       </div>
-                      
-                    </div>
                     </>
-
                   ))
                 : null}
-              
             </Slider>
           </div>
         </div>
