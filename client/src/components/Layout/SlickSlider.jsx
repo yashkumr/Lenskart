@@ -78,7 +78,7 @@ const SlickSlider = () => {
                     
                     <div className="homeCardSlider">
                       <img
-                        src={`http://35.154.206.192:8000/${c.categoryImage}`}
+                        src={`http://65.2.180.183:8000/${c.categoryImage}`}
                         alt={c.name}
                         
                       />

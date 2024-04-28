@@ -132,7 +132,7 @@ export default function NewOnSale() {
                       {val.mainImages.map((picture) => (
                         <>
                           <img
-                            src={`http://35.154.206.192:8000/${picture.img}`}
+                            src={`http://65.2.180.183:8000/${picture.img}`}
                             alt="images"
                           />
                         </>
