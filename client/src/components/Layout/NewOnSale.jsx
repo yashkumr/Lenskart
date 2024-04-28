@@ -4,7 +4,6 @@ import "../../assets/customCss/NewOnSale.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
-import { SITE_URL } from "../../../constant.js";
 
 export default function NewOnSale() {
   const [activeButton, setActiveButton] = useState("western");
@@ -133,7 +132,7 @@ export default function NewOnSale() {
                       {val.mainImages.map((picture) => (
                         <>
                           <img
-                            src={`${SITE_URL}${picture.img}`}
+                            src={`http://35.154.206.192:8000/${picture.img}`}
                             alt="images"
                           />
                         </>

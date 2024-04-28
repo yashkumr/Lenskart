@@ -112,7 +112,7 @@ const NewArrival = () => {
                         
                        
                           <img
-                            src={`http://localhost:8000/${picture.img}`}
+                            src={`http://35.154.206.192:8000/${picture.img}`}
                             alt="images"
                           />
                           </>

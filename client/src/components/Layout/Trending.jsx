@@ -2,9 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
 import "../../assets/customCss/Trending.css";
 import axios from "axios";
-
-import {  NavLink } from "react-router-dom";
-import {SITE_URL} from "../../../constant.js"
+import toast from "react-hot-toast";
+import { Link, NavLink } from "react-router-dom";
 
 const Trending = () => {
   const [trendingButton, setTrendingButton] = useState("trending");
@@ -81,7 +80,7 @@ const Trending = () => {
                       {val.mainImages.map((picture) => (
                         <>
                           <img
-                            src={`${SITE_URL}${picture.img}`}
+                            src={`http://35.154.206.192:8000/${picture.img}`}
                             alt="images"
                           />
                         </>
