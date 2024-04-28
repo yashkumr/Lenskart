@@ -13,12 +13,11 @@ import bannerRoutes from "./routes/bannerRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 
-
 dotenv.config();
 connectDB();
 export const app = express();
 
-app.use(express.static('uploads'));
+app.use(express.static('uploads'));  
 //ES module fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,14 +26,11 @@ const buildpath = path.join(__dirname, "../client/dist")
 app.use(express.static(buildpath));
 //middleware
 app.use(cors());
-app.use(cors({
-  origin: 'http://13.235.50.9:8000',
-  credentials: true,  // enable set cookie
-}));
-app.use(cors({
-  origin: 'http:/:localhost:8000',
-  credentials: true,  // enable set cookie
-}));
+// app.use(cors({
+//   origin: 'http://3.110.215.129:8000',
+//   credentials: true,  // enable set cookie
+// }));
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));

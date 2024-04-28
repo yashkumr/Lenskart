@@ -80,7 +80,7 @@ const Trending = () => {
                       {val.mainImages.map((picture) => (
                         <>
                           <img
-                            src={`http://13.235.50.9:8000/${picture.img}`}
+                            src={`http://35.154.206.192:8000/${picture.img}`}
                             alt="images"
                           />
                         </>
