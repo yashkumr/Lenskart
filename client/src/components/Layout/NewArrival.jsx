@@ -1,12 +1,10 @@
-import React, { useState, useEffect,Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
 import "../../assets/customCss/NewArrival.css";
 import axios from "axios";
-
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NewArrival = () => {
-
   const [activeButton, setActiveButton] = useState("western");
   const [visibilities, setVisibilites] = useState([]);
 
@@ -22,10 +20,10 @@ const NewArrival = () => {
       console.log(error);
     }
   };
-  
-  useEffect(()=>{
-      handleButtonClick("western");
-  },[])
+
+  useEffect(() => {
+    handleButtonClick("western");
+  }, []);
 
   var settings = {
     dots: true,
@@ -61,7 +59,7 @@ const NewArrival = () => {
       },
     ],
   };
-  
+
   return (
     <>
       <div>
@@ -109,14 +107,13 @@ const NewArrival = () => {
 
                       {val.mainImages.map((picture) => (
                         <>
-                        
-                       
                           <img
-                            src={`http://65.2.180.183:8000/${picture.img}`}
+                            src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                              picture.img
+                            }`}
                             alt="images"
                           />
-                          </>
-                        
+                        </>
                       ))}
                       <div>
                         <NavLink className="text-start">{val?.name}</NavLink>
@@ -125,7 +122,6 @@ const NewArrival = () => {
                   </Fragment>
                 );
               })}
-              
             </Slider>
           </div>
         </div>

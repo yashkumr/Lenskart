@@ -31,6 +31,6 @@ Layout.defaultProps = {
   description: "welcome to 1mg",
   keywords: "top-product, trending-product",
   author: "Abadhesh Tomar",
-};
+}; 1      
 
 export default Layout;

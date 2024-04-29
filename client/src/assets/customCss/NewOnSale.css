@@ -103,7 +103,8 @@
 /* ----- */
 .sale-tab-section {
 
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
     align-items: center;
     width: 100%;
     justify-content: center;

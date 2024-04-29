@@ -26,10 +26,7 @@ const buildpath = path.join(__dirname, "../client/dist")
 app.use(express.static(buildpath));
 //middleware
 app.use(cors());
-app.use(cors({
-  origin: 'http://65.2.180.183:8000',
-  credentials: true,  // enable set cookie
-}));
+app.use(cors({ origin: 'http://65.2.180.183:8000' }));
 
 app.use(express.json());
 app.use(morgan("dev"));

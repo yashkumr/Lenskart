@@ -78,7 +78,7 @@ const SlickSlider = () => {
                     
                     <div className="homeCardSlider">
                       <img
-                        src={`http://65.2.180.183:8000/${c.categoryImage}`}
+                        src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${c.categoryImage}`}
                         alt={c.name}
                         
                       />

@@ -132,7 +132,7 @@ export default function NewOnSale() {
                       {val.mainImages.map((picture) => (
                         <>
                           <img
-                            src={`http://65.2.180.183:8000/${picture.img}`}
+                            src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
                             alt="images"
                           />
                         </>

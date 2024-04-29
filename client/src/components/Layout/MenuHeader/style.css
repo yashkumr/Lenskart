@@ -1,5 +1,6 @@
 .menuHeader{
-    width: 100%;
+    
+    width: 80%;
     height: 40px;
     background: #fff;
     border-bottom: 1px solid #cecece;
@@ -11,7 +12,10 @@
     padding: 0;
 }
 .menuHeader > ul{
-    display: flex;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(80px, 1fr));
+    z-index: 9999;
     margin: 0 50px;
     position: relative;
     
