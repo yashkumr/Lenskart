@@ -25,8 +25,8 @@ const __dirname = path.dirname(__filename);
 const buildpath = path.join(__dirname, "../client/dist")
 app.use(express.static(buildpath));
 //middleware
-app.use(cors());
-app.use(cors({ origin: 'http://65.2.180.183:8000' }));
+// app.use(cors());
+app.use(cors({ origin: 'http://13.233.101.93:8000' }));
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -37,6 +37,10 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/banner", bannerRoutes);
+
+app.use("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 
 // app.use("/", (req, res) => {
