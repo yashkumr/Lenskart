@@ -27,7 +27,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (params?.slug) getProduct();
   }, [params?.slug]);
-  
+
   //getProduct
   const getProduct = async () => {
     try {
@@ -55,7 +55,10 @@ const ProductDetails = () => {
   return (
     <>
       <Layout>
-      <div className="main-info">
+        <div className="product-details-responsive">
+
+        
+        <div className="main-info">
           <div className="quick-info">
             <ul>
               <li>
@@ -136,9 +139,7 @@ const ProductDetails = () => {
           </div>
           <div className="lence-cart-details">
             <h5>{product.name}</h5>
-            <h4>
-            {product.description}
-            </h4>
+            <h4>{product.description}</h4>
             <div>
               {" "}
               <p> Size:Extra Wide</p> <p> </p>
@@ -170,11 +171,16 @@ const ProductDetails = () => {
 
             <div className="add-button">
               <NavLink to="/cart" className="cgAlpl">
-              <button className="cgAlpl" onClick={() =>
-                  dispatch(addToCart(product)) && navigate("/cart")
-                }>Buy Now</button>
+                <button
+                  className="cgAlpl"
+                  onClick={() =>
+                    dispatch(addToCart(product)) && navigate("/cart")
+                  }
+                >
+                  Buy Now
+                </button>
               </NavLink>
-              <button className="cgAlpl2" >Try On</button>
+              <button className="cgAlpl2">Try On</button>
             </div>
 
             <div className="cart-img-right">
@@ -221,12 +227,12 @@ const ProductDetails = () => {
                     >
                       More Details
                     </button>
-                    
                   </div>
                 </div>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </Layout>
     </>

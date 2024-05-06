@@ -42,18 +42,19 @@ const CartPage = () => {
                 <>
                   <div>
                     <div className="dtjBcJ p-2">
-                      <NavLink>
+                      <NavLink to="#">
                         {data.mainImages.map((picture) => (
                           <>
-                          
-                          <img
-                            src={`http://35.154.206.192:8000/${picture.img}`}
-                            alt="images"
-                          />
+                            <img
+                              src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                                picture.img
+                              }`}
+                              alt="images"
+                            />
                           </>
                         ))}
                       </NavLink>
-                      <div>
+                      <div className="main-cart-detials">
                         <div className="ezTXEY">
                           <div className="bil-para">{data.name}</div>
 

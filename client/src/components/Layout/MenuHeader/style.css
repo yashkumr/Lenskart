@@ -12,16 +12,16 @@
     padding: 0;
 }
 .menuHeader > ul{
-    
+    width: 80%;
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(80px, 1fr));
-    z-index: 9999;
-    margin: 0 50px;
     position: relative;
+    z-index: 9999
     
 }
 .menuHeader > ul > li > span{
-    display: block;
+    display: inline-block;
     line-height: 40px;
     cursor: pointer;
     padding: 0 20px;
@@ -40,7 +40,7 @@
     z-index: 2;
 }
 .menuHeader > ul > li:hover ul{
-    display: block;
+    display: inline-block;
 }
 .menuHeader > ul > li > ul > li{
     margin: 0 20px;
@@ -51,11 +51,11 @@
 }
 .menuHeader > ul > li > ul > li > a{
     font-weight: bold;
-    display: block;
+    display: inline-block;
 }
 .menuHeader > ul > li > ul > li a{
     padding: 3px 0;
-    display: block;
+    display: inline-block;
     font-size: 12px;
     text-decoration: none;
     color: #707070;

@@ -316,12 +316,15 @@ const Products = (props) => {
             <label className="key">Product Pictures</label>
             <div style={{ display: "flex" }}>
               {productDetails.productPictures.map((picture) => (
+                <>
+               
                 <div className="productImgContainer">
                   <img
-                    src={`../../public/uploads/${picture.img}`}
+                    src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
                     alt="images"
                   />
                 </div>
+                </>
               ))}
             </div>
           </Col>

@@ -25,14 +25,12 @@ const __dirname = path.dirname(__filename);
 const buildpath = path.join(__dirname, "../client/dist")
 app.use(express.static(buildpath));
 //middleware
-<<<<<<< HEAD
+
 // app.use(cors());
 app.use(cors({ origin: 'http://13.233.101.93:8000' }));
-=======
+
 
 app.use(cors({ origin: 'http://15.206.70.22:8000' }));
->>>>>>> 665d86a87b5ad0bc95e0e9c8b813915b7a10b20a
-
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));

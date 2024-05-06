@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import filterimg1 from "../../../assets/images/Filter/filter1.webp";
-import "../../../assets/customCss/Main.css";
+import "./style.css";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
@@ -88,10 +88,11 @@ const ProductStore = () => {
         <img src={filterimg1} />
       </div>
 
-      <div className=" filters-page ">
+      <div className="cat-filter">
+        
         <div className=" filter">
           <h4 className="text-center">Filter By Category</h4>
-          <div className="d-flex flex-column">
+          <div className="cat-f">
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
@@ -103,7 +104,7 @@ const ProductStore = () => {
           </div>
           {/* price filter */}
           <h4 className="text-center mt-4">Filter By Price</h4>
-          <div className="d-flex flex-column">
+          <div className="">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
                 <div key={p._id}>
@@ -112,7 +113,7 @@ const ProductStore = () => {
               ))}
             </Radio.Group>
           </div>
-          <div className="d-flex flex-column m-2">
+          <div className=" m-2">
             <button
               className="btn btn-danger"
               onClick={() => window.location.reload()}
@@ -122,48 +123,43 @@ const ProductStore = () => {
           </div>
         </div>
 
-        
-          <div className="category-product">
-            {products?.map((p) => (
-              <div
-              className="category-product-body " 
-                key={p._id}
-                
-              >
-                {p.mainImages.map((picture) => (
-                  <>
-                  
+        <div className="filter-body">
+          {products?.map((p) => (
+            <div className="filter-body-img" key={p._id}>
+              {p.mainImages.map((picture) => (
+                <>
                   <img
-                    src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
+                    src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                      picture.img
+                    }`}
                     alt="images"
                   />
-                  </>
-                ))}
-                <div  >
-                  <div className=" d-flex justify-content-evenly">
-                    <h5 className="card-title">{p.name}</h5>
-                    <h5 className=" ">
-                      {p.price.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </h5>
-                  </div>
+                </>
+              ))}
+              <div>
+                <div className=" ">
+                  <h5 className="card-title">{p.name}</h5>
+                  <h5 className=" ">
+                    {p.price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </h5>
+                </div>
 
-                  <div className="card-name-price d-flex justify-content-evenly">
-                    <button
-                      className="btn btn-primary mt-2 "
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                    >
-                      Add To Cart
-                    </button>
-                    <button className="btn btn-dark mt-2 ">Buy Now</button>
-                  </div>
+                <div className="filter-body-button">
+                  <button
+                    className="btn btn-primary mt-2 "
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    Add To Cart
+                  </button>
+                  <button className="btn btn-dark mt-2 ">Buy Now</button>
                 </div>
               </div>
-            ))}
-          </div>
-        
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

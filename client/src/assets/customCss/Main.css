@@ -12,6 +12,24 @@
 
 
 /* ------------add to cart -------------*/
+.product-details-responsive{
+
+}
+@media only screen and (max-width: 808px) {
+  .product-details-responsive{
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+  }
+  .lence-cart{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
 .lence-cart {
     display: flex;
     width: 96%;
@@ -268,6 +286,46 @@
   gap: 3rem;
   padding: 5px;
   /* justify-content: space-between; */
+}
+@media only screen and (max-width: 808px) {
+  .lence-bill{
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+    
+     
+  }
+  .lence-indc-button-gap{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     border: 0px;
+  }
+  .dtjBcJ{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     
+
+  }
+  .main-cart-detials{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+    
+  }
+  .eQSjIx{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     border: 1px solid red;
+
+  }
 }
 .lence-bill>div:nth-child(1) {
   width: 60%;
@@ -707,6 +765,35 @@
   width: 85%;
   gap: 1rem;
   margin: auto;
+}
+@media only screen and (max-width: 808px) {
+  .main-bill{
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+  }
+  .quick-info{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+
+  }
+  .lence-bill-details-card{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+  }
+  .gMDLDI{
+    display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+
+  }
 }
 .main-bill>div:nth-child(2){
   
