@@ -27,10 +27,7 @@ app.use(express.static(buildpath));
 //middleware
 
 // app.use(cors());
-app.use(cors({ origin: 'http://13.233.101.93:8000' }));
-
-
-app.use(cors({ origin: 'http://15.206.70.22:8000' }));
+app.use(cors({ origin: 'http://13.201.184.241:8000' }));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));

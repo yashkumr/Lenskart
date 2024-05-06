@@ -207,7 +207,7 @@ const ProductDetails = () => {
               <div className="card m-2" key={p._id}>
                 {p.mainImages.map((picture) => (
                   <img
-                    src={`http://localhost:8000/${picture.img}`}
+                    src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
                     alt="images"
                   />
                 ))}
