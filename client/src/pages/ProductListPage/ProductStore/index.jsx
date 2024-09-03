@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
 import filterimg1 from "../../../assets/images/Filter/filter1.webp";
 import "./style.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../../components/extraComponent/Prices.jsx";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../features/cartSlice.jsx";
+import getParams from "../../utils/getParams.jsx";
+import { FilterCategory } from "../../../components/extraComponent/FilterCategory.jsx";
 
 const ProductStore = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
-
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [filterProducts, setFilterProducts] = useState([]);
 
-  useEffect(() => {
-    if (params?.slug) getPrductsByCat();
-  }, []);
+  const param = getParams(location.search);
+  const cat = param.category;
+
   const getPrductsByCat = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product/product-category/${params.slug}`
+        `/api/v1/product/product-category/${cat}`
       );
-
       setProducts(data?.products);
       setCategory(data?.category);
     } catch (error) {
@@ -34,35 +37,19 @@ const ProductStore = () => {
     }
   };
 
-  //getAllCategory
-  const getAllCategory = async () => {
-    try {
-      const { data } = await axios.get("/api/v1/category/get-category");
-      if (data?.success) {
-        setCategories(data?.category);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategory();
-  }, []);
-
   // filter by cat
-  const handleFilter = (value, id) => {
+  const handleFilter = (value, fname) => {
     let all = [...checked];
     if (value) {
-      all.push(id);
+      all.push(fname);
     } else {
-      all = all.filter((c) => c !== id);
+      all = all.filter((c) => c !== fname);
     }
     setChecked(all);
   };
   useEffect(() => {
     if (!checked.length || !radio.length) getPrductsByCat();
-  }, [checked.length, radio.length]);
+  }, []);
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
@@ -75,8 +62,8 @@ const ProductStore = () => {
         checked,
         radio,
       });
-      console.log("filter Products", data?.products);
-      setFilterProducts(data?.products);
+      console.log(data?.products);
+      setProducts(data?.products);
     } catch (error) {
       console.log(error);
     }
@@ -89,21 +76,21 @@ const ProductStore = () => {
       </div>
 
       <div className="cat-filter">
-        
         <div className=" filter">
-          <h4 className="text-center">Filter By Category</h4>
+          <h5 className="text-start">category</h5>
           <div className="cat-f">
-            {categories?.map((c) => (
+            {FilterCategory?.map((c) => (
               <Checkbox
                 key={c._id}
-                onChange={(e) => handleFilter(e.target.checked, c._id)}
+                onChange={(e) => handleFilter(e.target.checked, c.name)}
+                value={c.name}
               >
                 {c.name}
               </Checkbox>
             ))}
           </div>
           {/* price filter */}
-          <h4 className="text-center mt-4">Filter By Price</h4>
+          <h5 className="text-start mt-4">Price</h5>
           <div className="">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
@@ -113,12 +100,12 @@ const ProductStore = () => {
               ))}
             </Radio.Group>
           </div>
-          <div className=" m-2">
+          <div className=" m-1">
             <button
-              className="btn btn-danger"
+              className="btn btn-danger p-1 m-1 fs-6"
               onClick={() => window.location.reload()}
             >
-              RESET FILTERS
+              Reset Filters
             </button>
           </div>
         </div>
@@ -137,24 +124,19 @@ const ProductStore = () => {
                 </>
               ))}
               <div>
-                <div className=" ">
-                  <h5 className="card-title">{p.name}</h5>
-                  <h5 className=" ">
-                    {p.price.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                  </h5>
-                </div>
+                <h6 className="product-name">{p.name}</h6>
+                <h6 className="product-price ">  &#x20b9; {p.price}</h6>
 
-                <div className="filter-body-button">
+                <div className="">
                   <button
-                    className="btn btn-primary mt-2 "
-                    onClick={() => navigate(`/product/${p.slug}`)}
+                    className="product-button "
+                    onClick={() =>
+                      dispatch(addToCart(p)) && navigate(`/product/${p.slug}`)
+                    }
                   >
                     Add To Cart
                   </button>
-                  <button className="btn btn-dark mt-2 ">Buy Now</button>
+                  {/* <button className="btn btn-dark mt-2 ">Buy Now</button> */}
                 </div>
               </div>
             </div>

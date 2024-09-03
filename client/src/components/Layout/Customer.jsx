@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import "../../assets/customCss/Customer.css";
+import "../../assets/customCss/Main.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
@@ -44,14 +44,14 @@ const Customer = () => {
   return (
     <>
       <div>
-        <div className="CustomerCardSlider-top mt-5">
-          <h1 className=""> LOVED BY CUSTOMERS</h1>
+        <div className="CustomerCardSlider-top mt-5 p-3">
+          <h2 className=""> LOVED BY CUSTOMERS</h2>
         </div>
 
-        <div style={{ backgroundColor: "#fff" }}>
+        <div style={{ backgroundColor: "" }}>
           <div
             className="slider-container "
-            style={{ width: "95%", margin: "auto" }}
+            style={{ width: "90%", margin: "auto" }}
           >
             <Slider {...settings}>
               <div className="CustomerCardSlider">

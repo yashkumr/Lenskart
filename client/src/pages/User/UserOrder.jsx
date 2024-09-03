@@ -3,13 +3,15 @@ import Layout from "../../components/Layout/Layout.jsx";
 import { useAuth } from "../../context/Auth";
 import axios from "axios";
 import UserMenu from "../../components/extraComponent/UserMenu.jsx";
-import "../../assets/customCss/Register.css";
+import moment from "moment";
+
 const UserOrder = () => {
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
   const getOrders = async () => {
     try {
       const { data } = await axios.get("/api/v1/auth/orders");
+      console.log(data);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -38,6 +40,8 @@ const UserOrder = () => {
               <h2 className="text-center">All Orders</h2>
               {orders?.map((o, i) => {
                 return (
+                  <>
+                 
                   <div className="border shadow">
                     <table className="table">
                       <thead>
@@ -55,9 +59,9 @@ const UserOrder = () => {
                           <td>{i + 1}</td>
                           <td>{o?.status}</td>
                           <td>{o?.buyer?.name}</td>
-                          <td>{moment(o?.createAt).fromNow()}</td>
-                          <td>success</td>
-                          {/* <td>{o?.payment.success ? "Success" : "Failed"}</td> */}
+                          <td>{moment(o.createdAt).fromNow()}</td>
+
+                          <td>{o?.payment.success ? "Success" : "Failed"}</td>
                           <td>{o?.products?.length}</td>
                         </tr>
                       </tbody>
@@ -66,26 +70,31 @@ const UserOrder = () => {
                       {o?.products?.map((p, i) => (
                         <div className="row mb-2 p-3 card flex-row" key={p._id}>
                           <div className="col-md-4">
-                            <img
-                              src={`/api/v1/product/product-photo/${p._id}`}
-                              className="card-img-top"
-                              alt={p.name}
-                              width="95px"
-                              height={"95px"}
-                            />
+                            {p?.mainImages.map((picture) => (
+                              <>
+                              
+                              <img
+                                src={`${
+                                  import.meta.env.VITE_REACT_APP_MAIN_URL
+                                }${picture.img}`}
+                                alt="images"
+                              />
+                              </>
+                            ))}
                           </div>
                           <div className="col-md-8">
                             <p>
                               {" "}
                               Product:{" "}
                               <strong style={{ fontSize: "13px" }}>
-                                {p.name}{" "}
+                              {o?.products?.name}
+                              
                               </strong>
                             </p>
                             <p>
                               About:{" "}
                               <strong style={{ fontSize: "13px" }}>
-                                {p.description.substring(0, 30)}{" "}
+                                {p.description}
                               </strong>
                             </p>
                             <p>
@@ -100,6 +109,7 @@ const UserOrder = () => {
                       ))}
                     </div>
                   </div>
+                  </>
                 );
               })}
             </div>

@@ -39,38 +39,41 @@ const CartPage = () => {
 
             <div className="XgzsV p-2">
               {cart?.map((data, id) => (
-                <>
+              <>
+             
                   <div>
                     <div className="dtjBcJ p-2">
                       <NavLink to="#">
-                        {data.mainImages.map((picture) => (
+                        {data?.mainImages.map((picture) => (
                           <>
+                         
                             <img
                               src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
                                 picture.img
                               }`}
                               alt="images"
                             />
-                          </>
+                             </>
+                         
                         ))}
                       </NavLink>
                       <div className="main-cart-detials">
                         <div className="ezTXEY">
                           <div className="bil-para">{data.name}</div>
 
-                          <div>Rs-1700</div>
+                          <div>{data.price}</div>
                         </div>
 
                         <div className="eQSjIx">
-                          <div>Final Price</div>
+                          {/* <div>Final Price</div>
                           <div>
                             <span>Rs:</span>
                             <span>5100</span>
-                          </div>
+                          </div> */}
                         </div>
                         <hr />
                         <div className="lence-indc">
-                          <div className="lence-indc-button">
+                          <div className="">
                             <div className="">
                               <div className="lence-indc-button-gap mb-">
                                 <button
@@ -95,7 +98,7 @@ const CartPage = () => {
                                     readOnly
                                     value={data.quantity}
                                     type="number"
-                                    className=" text-center "
+                                     className="text-center"
                                     onChange={() => null}
                                   />
                                 </div>
@@ -128,7 +131,8 @@ const CartPage = () => {
                       </div>
                     </div>
                   </div>
-                </>
+                  </>
+              
               ))}
             </div>
           </div>

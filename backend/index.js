@@ -9,7 +9,6 @@ import authRoutes from "./routes/authRoutes.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import productRoutes from "./routes/productRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js"
-
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -27,7 +26,7 @@ app.use(express.static(buildpath));
 //middleware
 
 // app.use(cors());
-app.use(cors({ origin: 'http://3.110.48.54:8000' }));
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,3 +50,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is Running on Port ${PORT}`.bgCyan.white);
 });
+  

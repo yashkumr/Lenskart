@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/customCss/Lence.css";
+import "../../assets/customCss/Main.css";
 import lence3 from "../../assets/images/Peyush/lence3.webp"
 import lence2 from "../../assets/images/Peyush/lence2.webp"
 import lence4 from "../../assets/images/Peyush/lence4.webp"

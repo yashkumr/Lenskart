@@ -7,7 +7,7 @@ export const createBannerController = async (req, res) => {
   try {
     const { name } = req.fields;
     const { photo } = req.files;
-   
+
     //validation
     switch (true) {
       case !name:
@@ -43,11 +43,13 @@ export const createBannerController = async (req, res) => {
 //get all Banner
 export const getBannerController = async (req, res) => {
   try {
+    console.log("hello i'm vimlesh");
     const products = await bannerModel
       .find({})
       .select("-photo")
       .limit(12)
       .sort({ createdAt: -1 });
+    
     res.status(200).send({
       success: true,
       counTotal: products.length,
@@ -88,7 +90,7 @@ export const getSingleBannerController = async (req, res) => {
   try {
     const product = await bannerModel
       .findOne({ slug: req.params.slug })
-      .select("-photo")
+      .select("-photo");
     res.status(200).send({
       success: true,
       message: "Single Product Fetched",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/customCss/Register.css";
+import "../../assets/customCss/Main.css";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -7,7 +7,7 @@ import Layout from "../../components/Layout/Layout.jsx";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [lname, setLname] = useState("");
+  const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
@@ -19,7 +19,7 @@ const Register = () => {
     try {
       const res = await axios.post("api/v1/auth/register", {
         name,
-        lname,
+        number,
         email,
         password,
         cpassword,
@@ -68,11 +68,11 @@ const Register = () => {
               <div className="col-md-6 text-gray mt-5">
                 <input
                   type="text"
-                  value={lname}
-                  onChange={(e) => setLname(e.target.value)}
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
                   className="form-control shadow-none"
                   id="validationDefault01"
-                  placeholder="Last Name"
+                  placeholder="Number"
                   required
                 />
               </div>
@@ -134,11 +134,11 @@ const Register = () => {
                   </label>
                 </div>
               </div>
-              <div className="col-6 registr-back">
+              {/* <div className="col-6 registr-back">
                 <button type="submit" className=" rounded-0">
                   <Link to="/">Back</Link>
                 </button>
-              </div>
+              </div> */}
               <div className="col-6 registr-back">
                 <button type="submit" className=" rounded-0">
                   Create Account

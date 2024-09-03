@@ -27,7 +27,6 @@ const Home = () => {
       }
     } catch (error) {
       console.log(error);
-      
     }
   };
   useEffect(() => {
@@ -59,16 +58,19 @@ const Home = () => {
             id="carouselExampleFade"
             className="carousel slide carousel-fade"
             data-bs-ride="carousel"
+            
           >
             <div className="carousel-inner">
               {banners?.map((c) => (
-                <div className="carousel-item active">
-                  <img
-                    src={`/api/v1/banner/product-photo/${c._id}`}
-                    className="card-img-top"
-                    alt={c.name}
-                  />
-                </div>
+                <>
+                  <div className="carousel-item active" >
+                    <img
+                      src={`/api/v1/banner/product-photo/${c._id}`}
+                      className="card-img-top"
+                      alt={c.name}
+                    />
+                  </div>
+                </>
               ))}
             </div>
             <button

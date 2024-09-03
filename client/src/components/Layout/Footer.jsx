@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/customCss//Footer.css"
+import "../../assets/customCss//Main.css"
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { AiTwotoneMail } from "react-icons/ai";
@@ -19,7 +19,7 @@ const Footer = () => {
             <div className="row text-center text-md-left">
               <div className=" foot-content col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h5 className=" foot-heading text-uppercase mb-4  text-warning">
-                  Company Name
+                   About Optic Foucs
                 </h5>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.

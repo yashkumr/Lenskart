@@ -1,19 +1,20 @@
 import { comparePassword, hashPassword } from "../helper/authHelper.js";
+import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import JWT from "jsonwebtoken";
 
 //Register Routes
 export const registerController = async (req, res) => {
   try {
-    const { name, lname, email, password, cpassword } = req.body;
+    const { name, number, email, password, cpassword } = req.body;
     console.log(req.body);
 
     //validations
     if (!name) {
       return res.send({ message: "Name is Required" });
     }
-    if (!lname) {
-      return res.send({ message: "Last name is Required" });
+    if (!number) {
+      return res.send({ message: "Number  is Required" });
     }
     if (!email) {
       return res.send({ message: "Email is Required" });
@@ -41,7 +42,7 @@ export const registerController = async (req, res) => {
     //save
     const user = await new userModel({
       name,
-      lname,
+      number,
       email,
       password: hashedPassword,
     }).save();
@@ -63,6 +64,7 @@ export const registerController = async (req, res) => {
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     //validation
     if (!email || !password) {
       return res.status(404).send({
@@ -105,6 +107,48 @@ export const loginController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in login",
+      error,
+    });
+  }
+};
+
+// getUsersController
+export const getUsersController = async (req, res) => {
+  try {
+    const users = await userModel.find({}).limit(12).sort({ createdAt: -1 });
+
+    res.status(200).send({
+      success: true,
+      counTotal: users.length,
+      message: "All Users ",
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting products",
+      error,
+    });
+  }
+};
+
+//deleteProductController
+export const deleteUsersController = async (req, res) => {
+  try {
+    console.log("hello delete");
+    const { id } = req.params;
+    console.log(id);
+    await userModel.findByIdAndDelete(id);
+    res.status(200).send({
+      success: true,
+      message: "User Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while deleting Users",
       error,
     });
   }
@@ -179,6 +223,70 @@ export const updateProfileController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error WHile Update profile",
+      error,
+    });
+  }
+};
+
+// User order
+export const getOrdersController = async (req, res) => {
+  try {
+    console.log("hello order")
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products", "mainImages")
+      .populate("buyer", "name");
+      console.log(orders);
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+
+//Admin orders
+export const getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "mainImages")
+      .populate("buyer", "name")
+      .sort({ createdAt: -1 });
+
+    console.log(orders);
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+//order status
+export const orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Updateing Order",
       error,
     });
   }

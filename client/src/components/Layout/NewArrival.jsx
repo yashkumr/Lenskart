@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
-import "../../assets/customCss/NewArrival.css";
+import "../../assets/customCss/Main.css";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 
 const NewArrival = () => {
   const [activeButton, setActiveButton] = useState("western");
@@ -26,7 +26,7 @@ const NewArrival = () => {
   }, []);
 
   var settings = {
-    dots: true,
+   
     infinite: false,
     speed: 500,
     slidesToShow: 3,
@@ -39,7 +39,7 @@ const NewArrival = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          
         },
       },
       {
@@ -64,39 +64,38 @@ const NewArrival = () => {
     <>
       <div>
         <div className="homeCardSlider-top mt-5">
-          <h1> New Arrival</h1>
+          <h2> New Arrival</h2>
         </div>
         <div className="sale-tab-section">
+          
           <button
             className={
-              activeButton === "western" ? "active" : "sale-tab-button"
+              activeButton === "western" ? "active1" : "sale-tab-button"
             }
             onClick={() => handleButtonClick("western")}
           >
             Western
           </button>
-          {/* <button className={activeButton === "unstiched" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("unstiched")}>Unstiched</button> */}
-          {/* <button className={activeButton === "home" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("home")}>Home</button> */}
+          
           <button
-            className={activeButton === "men" ? "active" : "sale-tab-button"}
+            className={activeButton === "men" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("men")}
           >
             Men
           </button>
-          {/* <button className={activeButton === "bear" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("bear")}> Ready To Bear</button> */}
+
           <button
-            className={activeButton === "kids" ? "active" : "sale-tab-button"}
+            className={activeButton === "kids" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("kids")}
           >
             Kids
           </button>
-          {/* <button className={activeButton === "accessories" ? 'active' : 'sale-tab-button'} onClick={() => handleButtonClick("accessories")}>Accessories</button> */}
         </div>
 
-        <div style={{ backgroundColor: "rgb(233 233 233)" }}>
+        <div style={{ backgroundColor: "rgb(255 255 255)" }}>
           <div
             className="slider-container "
-            style={{ width: "95%", margin: "auto" }}
+            style={{ width: "85%", margin: "auto" }}
           >
             <Slider {...settings}>
               {visibilities.map((val, index) => {
@@ -104,7 +103,9 @@ const NewArrival = () => {
                   <Fragment key={index}>
                     <div className="homeCardSlider">
                       {/* <img  src={`../../../public/uploads/${val.img}`} alt="image"  /> */}
-
+                      <Link to={`/product/${val.slug}`}>
+                     
+                        
                       {val.mainImages.map((picture) => (
                         <>
                           <img
@@ -115,8 +116,10 @@ const NewArrival = () => {
                           />
                         </>
                       ))}
-                      <div>
-                        <NavLink className="text-start">{val?.name}</NavLink>
+                       </Link>
+                     
+                      <div className="sell-Button">
+                        <NavLink className="sell-name-button">{val?.name}</NavLink>
                       </div>
                     </div>
                   </Fragment>

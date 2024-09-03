@@ -10,13 +10,14 @@ import { useLocation } from 'react-router-dom';
 
 const ProductListPage = (props) => {
   const location = useLocation();
-
+  
   const renderProduct = () => {
 
-    console.log(props);
-    
     const params = getParams(location.search);
+    
     // console.log("params is =", params);
+    // const cat = params.category;
+    // console.log(cat);
     let content = null;
     switch (params.type) {
       case "store":
@@ -26,7 +27,7 @@ const ProductListPage = (props) => {
         content = <ProductPage {...props} />;
         break;
       default:
-        content = <ClothingAndAccessories {...props} />;
+        content = <ProductStore {...props} />;
     }
 
     return content;

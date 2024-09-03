@@ -145,7 +145,8 @@ const SideNav = () => {
                     className="nav-link"
                   >
                     <span className="p-2">
-                      <FaProductHunt />{" "}
+                    <FaRegUserCircle />
+                     
                     </span>
                     <p>Users</p>
                   </a>
@@ -153,14 +154,14 @@ const SideNav = () => {
 
               
 
-                {/* <li className="nav-item">
+                <li className="nav-item">
                   <a href="/dashboard/admin/orders" className="nav-link">
                     <span className="p-2">
-                      <FaRegUserCircle />
+                    <FaProductHunt />{" "} 
                     </span>
-                    <p>All Orders</p>
+                    <p> Orders</p>
                   </a>
-                </li> */}
+                </li>
               </ul>
             </nav>
             {/* /.sidebar-menu */}

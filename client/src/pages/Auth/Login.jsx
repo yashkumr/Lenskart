@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/Auth.jsx";
 import Layout from "../../components/Layout/Layout.jsx";
-import "../../assets/customCss/Login.css";
+import "../../assets/customCss/Main.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -112,7 +112,7 @@ const Login = () => {
             </p>
             <div className="col-4 account-back">
               <button type="submit" className=" rounded-0">
-                <Link to="/">Create an Account</Link>
+                <NavLink to="/register">Create an Account</NavLink>
               </button>
             </div>
           </div>

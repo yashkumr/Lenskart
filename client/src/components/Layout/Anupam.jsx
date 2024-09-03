@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/customCss/Lence.css";
+import "../../assets/customCss/Main.css";
 import lence3 from "../../assets/images/Peyush/lence3.webp"
 import lence2 from "../../assets/images/Peyush/lence2.webp"
 import lence4 from "../../assets/images/Peyush/lence4.webp"
@@ -10,7 +10,7 @@ const Anupam = () => {
     <>
       <div>
         <h2 className="text-center mt-5" style={{ color: " #38386c" }}>
-          His Picks
+         Top Picks
         </h2>
         <p className="text-center text-muted fw-normanl">
           Hustlr in Anupam's favorite's colors

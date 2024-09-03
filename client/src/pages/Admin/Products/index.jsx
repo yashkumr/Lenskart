@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Products = (props) => {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [visibilty, setVisibility] = useState("");
@@ -140,7 +140,7 @@ const Products = (props) => {
                   <td>{id + 1}</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td>{product.quantity}</td>
+                  
                   <td>{product && product?.category?.name}</td>
                   {/* <td>
                     <div style={{ display: "flex" }}>
@@ -198,43 +198,43 @@ const Products = (props) => {
         <Input
           label="Name"
           value={name}
+          required={true}
           placeholder={`Product Name`}
           onChange={(e) => setName(e.target.value)}
         />
-        <Input
-          label="Quantity"
-          value={quantity}
-          placeholder={`Quantity`}
-          onChange={(e) => setQuantity(e.target.value)}
-        />
+        
         <Input
           label="Price"
           value={price}
           placeholder={`Price`}
+          required={true}
           onChange={(e) => setPrice(e.target.value)}
         />
         <Input
           label="Description"
           value={description}
           placeholder={`Description`}
+          required={true}
           onChange={(e) => setDescription(e.target.value)}
         />
-          <select
-            className="form-control mt-2"
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
-          >
-            <option>select category</option>
-            {createCategoryList(category).map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </select>
+        <select
+          className="form-control mt-2"
+          required={true}
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
+        >
+          <option>select category</option>
+          {createCategoryList(category).map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
 
         <label className="mt-2 ">Visibility</label>
         <select
           className="form-control  mb-2 "
+          required={true}
           value={visibilty}
           onChange={(e) => setVisibility(e.target.value)}
         >
@@ -256,6 +256,7 @@ const Products = (props) => {
           type="file"
           multiple
           name="productPicture"
+          required={true}
           onChange={handleProductPictures}
         />
       </Modal>
@@ -294,10 +295,7 @@ const Products = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col md="6">
-            <label className="key">Quantity</label>
-            <p className="value">{productDetails.quantity}</p>
-          </Col>
+         
           <Col md="6">
             <label className="key">Category</label>
             <p className="value">
@@ -317,13 +315,14 @@ const Products = (props) => {
             <div style={{ display: "flex" }}>
               {productDetails.productPictures.map((picture) => (
                 <>
-               
-                <div className="productImgContainer">
-                  <img
-                    src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
-                    alt="images"
-                  />
-                </div>
+                  <div className="productImgContainer">
+                    <img
+                      src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                        picture.img
+                      }`}
+                      alt="images"
+                    />
+                  </div>
                 </>
               ))}
             </div>

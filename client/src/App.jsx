@@ -17,14 +17,20 @@ import UpdateBanner from "./pages/Admin/Banner/UpdateBanner.jsx";
 import UpdateProduct from "./pages/Admin/Products/UpdateProduct.jsx";
 import UserProfile from "./pages/User/UserProfile.jsx";
 import AllUser from "./pages/Admin/User/AllUser.jsx";
-import ProductListPage from "./pages/ProductListPage/index.jsx";
+
 import ProductDetails from "./pages/ProductDetails.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import Shipping from "./pages/Shipping.jsx";
+import ProductListPage from "./pages/ProductListPage/index.jsx"; 
+import AllFilterProduct from "./pages/AllFilterProduct.jsx";
+import Search from "./pages/Search.jsx";
+import AdminOrder from "./pages/Admin/Orders/AdminOrder.jsx";
+import UserOrder from "./pages/User/UserOrder.jsx";
 
 function App() {
   return (
     <>
+    {/* import ProductListPage from "./pages/ProductListPage/index.jsx"; */}
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -32,6 +38,8 @@ function App() {
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/shipping" element={<Shipping />} />
+
+        <Route path="/search" element={<Search/>}/>
 
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
@@ -42,6 +50,7 @@ function App() {
           />
           <Route path="admin/banner" element={<HomeBanner />} />
           <Route path="admin/all-users" element={<AllUser />} />
+          <Route path="admin/orders" element={<AdminOrder />} />
           <Route path="admin/create-category" element={<Category />} />
           <Route
             path="admin/banner/update-banner/:slug"
@@ -51,7 +60,7 @@ function App() {
 
         <Route path="/dashboard" element={<UserRoute />}>
           <Route path="user" element={<UserDashboard />} />
-
+          <Route path="user/orders" element={<UserOrder/>} />
           <Route path="user/profile" element={<UserProfile />} />
         </Route>
 

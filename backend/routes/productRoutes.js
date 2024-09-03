@@ -1,6 +1,7 @@
 import express from "express";
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 import {
+
   brainTreePaymentController,
   braintreeTokenController,
   createProductController,
@@ -8,12 +9,11 @@ import {
   getProductController,
   getSingleProductController,
   productCategoryController,
-  productColorController,
+ 
   productCountController,
   productFiltersController,
   productListController,
   productPhotoController,
-  productSizeController,
   realtedProductController,
   searchProductController,
   updateProductController,
@@ -69,26 +69,22 @@ router.delete("/delete-product/:id", deleteProductController);
 //routes
 router.put(
   "/update-product/:pid",
-  requireSignIn,
-  isAdmin,
+  requireSignIn,isAdmin,
   upload.array("productPicture"),
   updateProductController
 );
 //product count
 router.get("/product-count", productCountController);
-
 //product per page
 router.get("/product-list/:page", productListController);
 
 //filter product
 router.post("/product-filters", productFiltersController);
+//allFilter
+// router.get("/all-filters", allFilterController);
 
 //category wise Product
 router.get("/product-category/:slug", productCategoryController);
-//color wise Product
-router.get("/product-color/:slug", productColorController);
-//size wise Product
-router.get("/product-size/:slug", productSizeController);
 //search Product
 router.get("/search/:keyword", searchProductController);
 

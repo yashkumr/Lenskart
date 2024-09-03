@@ -1,13 +1,15 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
-import "../../assets/customCss/NewOnSale.css";
+import "../../assets/customCss/Main.css";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function NewOnSale() {
   const [activeButton, setActiveButton] = useState("western");
   const [visibilities, setVisibilites] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleButtonClick = async (buttonId) => {
     try {
@@ -27,8 +29,8 @@ export default function NewOnSale() {
   }, []);
 
   var settings = {
-    dots: true,
-    infinite: false,
+    
+    infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -40,7 +42,7 @@ export default function NewOnSale() {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          
         },
       },
       {
@@ -65,32 +67,33 @@ export default function NewOnSale() {
     <>
       <div>
         <div className="homeCardSlider-top mt-5">
-          <h1> NEW ON SALE</h1>
+          <h2> NEW ON SALE</h2>
         </div>
+
         <div className="sale-tab-section">
           <button
             className={
-              activeButton === "western" ? "active" : "sale-tab-button"
+              activeButton === "western" ? "active1" : "sale-tab-button"
             }
             onClick={() => handleButtonClick("western")}
           >
             Western
           </button>
           <button
-            className={activeButton === "men" ? "active" : "sale-tab-button"}
+            className={activeButton === "men" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("men")}
           >
             Men
           </button>
           <button
-            className={activeButton === "kids" ? "active" : "sale-tab-button"}
+            className={activeButton === "kids" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("kids")}
           >
             Kids
           </button>
           <button
             className={
-              activeButton === "accessories" ? "active" : "sale-tab-button"
+              activeButton === "accessories" ? "active1" : "sale-tab-button"
             }
             onClick={() => handleButtonClick("accessories")}
           >
@@ -98,20 +101,20 @@ export default function NewOnSale() {
           </button>
           <button
             className={
-              activeButton === "unstiched" ? "active" : "sale-tab-button"
+              activeButton === "unstiched" ? "active1" : "sale-tab-button"
             }
             onClick={() => handleButtonClick("unstiched")}
           >
             Unstiched
           </button>
           <button
-            className={activeButton === "home" ? "active" : "sale-tab-button"}
+            className={activeButton === "home" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("home")}
           >
             Home
           </button>
           <button
-            className={activeButton === "bear" ? "active" : "sale-tab-button"}
+            className={activeButton === "bear" ? "active1" : "sale-tab-button"}
             onClick={() => handleButtonClick("bear")}
           >
             {" "}
@@ -119,26 +122,31 @@ export default function NewOnSale() {
           </button>
         </div>
 
-        <div style={{ backgroundColor: "rgb(233 233 233)" }}>
+        <div style={{ backgroundColor: "rgb(255 255 255)" }}>
           <div
             className="slider-container "
-            style={{ width: "95%", margin: "auto" }}
+            style={{ width: "85%", margin: "auto" }}
           >
             <Slider {...settings}>
               {visibilities.map((val, index) => {
                 return (
                   <Fragment key={index}>
                     <div className="homeCardSlider">
-                      {val.mainImages.map((picture) => (
-                        <>
-                          <img
-                            src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
-                            alt="images"
-                          />
-                        </>
-                      ))}
-                      <div>
-                        <NavLink className="text-start">{val?.name}</NavLink>
+                      <Link to={`/product/${val.slug}`}>
+                        {val.mainImages.map((picture) => (
+                          <>
+                            <img
+                              src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                                picture.img
+                              }`}
+                              alt="images"
+                            />
+                          </>
+                        ))}
+                      </Link>
+                      
+                      <div className="sell-Button">
+                        <NavLink className="sell-name-button">{val?.name}</NavLink>
                       </div>
                     </div>
                   </Fragment>

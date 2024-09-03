@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
-import "../../assets/customCss/Trending.css";
+import "../../assets/customCss/Main.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
@@ -26,8 +26,8 @@ const Trending = () => {
     handleButtonClick("trending");
   }, []);
   var settings = {
-    dots: true,
-    infinite: false,
+    
+    infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -39,7 +39,7 @@ const Trending = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+         
         },
       },
       {
@@ -63,11 +63,11 @@ const Trending = () => {
     <>
       <div>
         <div className="homeCardSlider-top mt-5">
-          <h1> TRENDING</h1>
+          <h2> TRENDING</h2>
         </div>
         
 
-        <div style={{ backgroundColor: "rgb(233 233 233)" }}>
+        <div style={{ backgroundColor: "rgb(255 255 255)" }}>
           <div
             className="slider-container "
             style={{ width: "90%", margin: "auto" }}
@@ -77,17 +77,23 @@ const Trending = () => {
                 return (
                   <Fragment key={index}>
                     <div className="homeCardSlider">
+                    <Link to={`/product/${val.slug}`}>
                       {val.mainImages.map((picture) => (
                         <>
+                        
+                        
                           <img
                             src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${picture.img}`}
                             alt="images"
                           />
+                        
                         </>
                       ))}
-                      <div>
-                        <NavLink>{val?.name}</NavLink>
+                        </Link>
+                      <div className="sell-Button">
+                        <NavLink className="sell-name-button">{val?.name}</NavLink>
                       </div>
+                      
                     </div>
                   </Fragment>
                 );

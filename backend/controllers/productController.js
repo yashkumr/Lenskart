@@ -108,7 +108,7 @@ export const visibleProductController = async (req, res) => {
 
     res.status(200).send({
       success: true,
-      message: "Error in Get Single Products",
+      message: "Error in Get visible Products",
       products,
     });
   } catch (error) {
@@ -127,9 +127,11 @@ export const getSingleProductController = async (req, res) => {
     const product = await productModel
       .findOne({ slug: req.params.slug })
       .populate("category");
+
+      console.log(product);
+
     res.status(200).send({
       success: true,
-      message: "Error in Get Single Products",
       product,
     });
   } catch (error) {
@@ -160,10 +162,10 @@ export const productPhotoController = async (req, res) => {
   }
 };
 
-//delete category
+//delete Product
 export const deleteProductController = async (req, res) => {
   try {
-    console.log("hello");
+    
     const { id } = req.params;
     console.log(id);
     await productModel.findByIdAndDelete(id);
@@ -181,7 +183,7 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-//upate products
+//update products
 export const updateProductController = async (req, res) => {
   try {
     const {
@@ -211,7 +213,7 @@ export const updateProductController = async (req, res) => {
         description,
         productPictures,
         category,
-        visibility,
+         visibility,
         createdBy: req.user._id,
       },
       { new: true }
@@ -280,8 +282,9 @@ export const productFiltersController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
     let args = {};
-    if (checked.length > 0) args.category = checked;
+    if (checked.length > 0) args.visibility = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    
     const products = await productModel.find(args);
     res.status(200).send({
       success: true,
@@ -297,7 +300,6 @@ export const productFiltersController = async (req, res) => {
   }
 };
 
-// similar products
 export const realtedProductController = async (req, res) => {
   try {
     const { pid, cid } = req.params;
@@ -308,9 +310,12 @@ export const realtedProductController = async (req, res) => {
       })
       .limit(3)
       .populate("category");
+
+      
     res.status(200).send({
       success: true,
       products,
+      
     });
   } catch (error) {
     console.log(error);
@@ -322,13 +327,16 @@ export const realtedProductController = async (req, res) => {
   }
 };
 
+
+
+
+
 //productCategoryController
 export const productCategoryController = async (req, res) => {
   try {
     const category = await categoryModal.findOne({ slug: req.params.slug });
-    const products = await productModel.find({ category }).populate("category");
-        console.log(category)
-        console.log(products)
+    const products = await productModel.find({category}).populate("category");
+        
     res.status(200).send({
       success: true,
       category,
@@ -344,54 +352,13 @@ export const productCategoryController = async (req, res) => {
   }
 };
 
-//productColorController
-export const productColorController = async (req, res) => {
-  try {
-    const color = await colorModel.findOne({ slug: req.params.slug });
 
-    const products = await productModel.find({ color }).populate("color");
-
-    res.status(200).send({
-      success: true,
-      color,
-      products,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Error in product Size",
-      error,
-    });
-  }
-};
-
-//productSizeController
-export const productSizeController = async (req, res) => {
-  try {
-    const size = await sizeModel.findOne({ slug: req.params.slug });
-
-    const products = await productModel.find({ size }).populate("size");
-
-    res.status(200).send({
-      success: true,
-      size,
-      products,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Error in products Size",
-      error,
-    });
-  }
-};
 
 //searchProductController
 export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
+    console.log(keyword);
 
     const results = await productModel
       .find({
@@ -400,7 +367,7 @@ export const searchProductController = async (req, res) => {
           { description: { $regex: keyword, $options: "i" } },
         ],
       })
-      .select("-photo");
+      console.log(results);
     res.json(results);
   } catch (error) {
     console.log(error);
