@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/Auth.jsx";
 import Layout from "../../components/Layout/Layout.jsx";
 import "../../assets/customCss/Main.css";
+import OAuth from "../../components/extraComponent/OAuth.jsx";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -93,9 +94,9 @@ const Login = () => {
                       </button>
                     </div>
                     <div className="col-md-6 p-1 login-back d-flex">
-                      <button className=" rounded-0">
-                        <Link to="/forgot-password">Forgot Password</Link>
-                      </button>
+                      
+                        <OAuth/>
+                  
                     </div>
                   </div>
                 </form>
@@ -112,7 +113,8 @@ const Login = () => {
             </p>
             <div className="col-4 account-back">
               <button type="submit" className=" rounded-0">
-                <NavLink to="/register">Create an Account</NavLink>
+                
+                {/* <NavLink to="/register">Create an Account</NavLink> */}
               </button>
             </div>
           </div>

@@ -9,7 +9,6 @@ import orderModel from "../models/orderModel.js";
 
 dotenv.config();
 
-
 //payment gateway
 var gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
@@ -38,10 +37,10 @@ export const createProductController = async (req, res) => {
         return { img: file.filename };
       });
     }
-    let  mainImages = [];
+    let mainImages = [];
 
     if (mainImage && mainImage.length > 0) {
-       mainImages = mainImage.map((file) => {
+      mainImages = mainImage.map((file) => {
         return { img: file.filename };
       });
     }
@@ -128,7 +127,7 @@ export const getSingleProductController = async (req, res) => {
       .findOne({ slug: req.params.slug })
       .populate("category");
 
-      console.log(product);
+    console.log(product);
 
     res.status(200).send({
       success: true,
@@ -165,7 +164,6 @@ export const productPhotoController = async (req, res) => {
 //delete Product
 export const deleteProductController = async (req, res) => {
   try {
-    
     const { id } = req.params;
     console.log(id);
     await productModel.findByIdAndDelete(id);
@@ -213,7 +211,7 @@ export const updateProductController = async (req, res) => {
         description,
         productPictures,
         category,
-         visibility,
+        visibility,
         createdBy: req.user._id,
       },
       { new: true }
@@ -284,7 +282,7 @@ export const productFiltersController = async (req, res) => {
     let args = {};
     if (checked.length > 0) args.visibility = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
-    
+
     const products = await productModel.find(args);
     res.status(200).send({
       success: true,
@@ -311,11 +309,9 @@ export const realtedProductController = async (req, res) => {
       .limit(3)
       .populate("category");
 
-      
     res.status(200).send({
       success: true,
       products,
-      
     });
   } catch (error) {
     console.log(error);
@@ -327,16 +323,12 @@ export const realtedProductController = async (req, res) => {
   }
 };
 
-
-
-
-
 //productCategoryController
 export const productCategoryController = async (req, res) => {
   try {
     const category = await categoryModal.findOne({ slug: req.params.slug });
-    const products = await productModel.find({category}).populate("category");
-        
+    const products = await productModel.find({ category }).populate("category");
+
     res.status(200).send({
       success: true,
       category,
@@ -352,22 +344,19 @@ export const productCategoryController = async (req, res) => {
   }
 };
 
-
-
 //searchProductController
 export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
     console.log(keyword);
 
-    const results = await productModel
-      .find({
-        $or: [
-          { name: { $regex: keyword, $options: "i" } },
-          { description: { $regex: keyword, $options: "i" } },
-        ],
-      })
-      console.log(results);
+    const results = await productModel.find({
+      $or: [
+        { name: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    });
+    console.log(results);
     res.json(results);
   } catch (error) {
     console.log(error);
@@ -398,7 +387,21 @@ export const braintreeTokenController = async (req, res) => {
 //payment
 export const brainTreePaymentController = async (req, res) => {
   try {
-    const { nonce, cart } = req.body;
+    const {
+      nonce,
+      cart,
+      name,
+      lname,
+      userEmail,
+      country,
+      state,
+      city,
+      address,
+      pinCode,
+      number,
+    } = req.body;
+    console.log(req.body);
+
     let total = 0;
     cart.map((i) => {
       total += i.price;
@@ -417,6 +420,15 @@ export const brainTreePaymentController = async (req, res) => {
             products: cart,
             payment: result,
             buyer: req.user._id,
+            name,
+            lname,
+            userEmail,
+            country,
+            state,
+            city,
+            address,
+            pinCode,
+            number,
           }).save();
           res.json({ ok: true });
         } else {

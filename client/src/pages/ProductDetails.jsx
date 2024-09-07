@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout.jsx";
 import { IoIosArrowForward } from "react-icons/io";
@@ -9,6 +9,39 @@ import { useDispatch } from "react-redux";
 const ProductDetails = () => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [mainImg, setMainImg] = useState();
+
+  const handleImageClick = (img) => {
+    setMainImg(img);
+  };
+
+  const [zoomImage, setZoomImage] = useState(false);
+  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const handleZoomImage = useCallback(
+    (e) => {
+      setZoomImage(true);
+      const { left, top, width, height } = e.target.getBoundingClientRect();
+      // console.log("coordinate", left, top, width, height);
+
+      const x = (e.clientX - left) / width;
+      const y = (e.clientY - top) / height;
+
+      // console.log("dimension", x, y);
+      setZoomImageCoordinate({
+        x,
+        y,
+      });
+    },
+    [zoomImageCoordinate]
+  );
+
+  const handleLeaveImageZoom = () => {
+    setZoomImage(false);
+  };
 
   const params = useParams();
   const navigate = useNavigate();
@@ -34,6 +67,10 @@ const ProductDetails = () => {
   const productsArray = Array.isArray(singleProduct)
     ? singleProduct
     : [singleProduct];
+  console.log(productsArray);
+
+  // const singleImage = productsArray.productPictures[0].img;
+  // console.log(singleImage);
 
   //get similar product
   const getSimilarProduct = async (pid, cid) => {
@@ -90,18 +127,58 @@ const ProductDetails = () => {
               <>
                 <div className="lence-cart">
                   <div className="lence-cart-section">
-                    <div>
-                      {sp &&
-                        sp?.mainImages.map((picture) => (
-                          <>
-                            <img
-                              src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
-                                picture.img
-                              }`}
-                              alt="images"
-                            />
-                          </>
-                        ))}
+                    <div className="">
+                      <div className="multi-images">
+                        {sp &&
+                          sp?.productPictures.map((picture) => (
+                            <>
+                              <img
+                                src={`${
+                                  import.meta.env.VITE_REACT_APP_MAIN_URL
+                                }${picture.img}`}
+                                alt="images"
+                                onClick={() => setMainImg(picture?.img)}
+                              />
+                            </>
+                          ))}
+                      </div>
+
+                      <div>
+                        {sp && sp?.mainImages.map((picture) => <>
+
+                        
+
+                        <img
+                          src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                            mainImg || picture.img
+                          }`}
+                          alt="images"
+                          className="single-image"
+                          onMouseMove={handleZoomImage}
+                          onMouseLeave={handleLeaveImageZoom}
+                        />
+                       
+
+                        {/**product zoom */}
+                        {zoomImage && (
+                          <div className="singel-zoom   ">
+                            <div
+                              className="scroll-img "
+                              style={{
+                                backgroundImage: `url(${
+                                  import.meta.env.VITE_REACT_APP_MAIN_URL
+                                }${mainImg || picture.img})`,
+                                backgroundRepeat: "no-repeat",
+                                backgroundPosition: `${
+                                  zoomImageCoordinate.x * 100
+                                }% ${zoomImageCoordinate.y * 100}% `,
+                                height: "70dvh",
+                              }}
+                            ></div>
+                          </div>
+                        )}
+                         </>)}
+                      </div>
                     </div>
                   </div>
 
@@ -161,7 +238,10 @@ const ProductDetails = () => {
               <p className="text-center">No Similar Products found</p>
             )}
             <h4 className="text-center">
-              <span style={{color:"skyblue", borderRadius:"4px"}}>{relatedProducts.length} </span>  Products Found ➡️
+              <span style={{ color: "skyblue", borderRadius: "4px" }}>
+                {relatedProducts.length}{" "}
+              </span>{" "}
+              Products Found ➡️
             </h4>
 
             <div className=" similar-product-body">

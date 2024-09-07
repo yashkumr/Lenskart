@@ -2,6 +2,8 @@ import { comparePassword, hashPassword } from "../helper/authHelper.js";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import JWT from "jsonwebtoken";
+import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 //Register Routes
 export const registerController = async (req, res) => {
@@ -231,14 +233,14 @@ export const updateProfileController = async (req, res) => {
 // User order
 export const getOrdersController = async (req, res) => {
   try {
-    console.log("hello order")
+    console.log("hello order");
     const orders = await orderModel
       .find({ buyer: req.user._id })
       .populate("products", "mainImages")
       .populate("buyer", "name");
-      console.log(orders);
+    console.log(orders);
     res.json(orders);
-  } catch (error) {
+  } catch (error) { 
     console.log(error);
     res.status(500).send({
       success: false,
@@ -247,7 +249,6 @@ export const getOrdersController = async (req, res) => {
     });
   }
 };
-
 
 //Admin orders
 export const getAllOrdersController = async (req, res) => {
@@ -289,5 +290,129 @@ export const orderStatusController = async (req, res) => {
       message: "Error While Updateing Order",
       error,
     });
+  }
+};
+
+export const addressController = async (req, res) => {
+  try {
+    console.log("hello order")
+    console.log(req.body);
+    const {
+      name,
+      lname,
+      userEmail,
+      country,
+      state,
+      city,
+      address,
+      pinCode,
+      number,
+    } = req.body;
+
+    if (!name) {
+      return res.send({ message: "Name is required" });
+    }
+    if (!lname) {
+      return res.send({ message: "lname is required" });
+    }
+    if (!userEmail) {
+      return res.send({ message: "Email is required" });
+    }
+    if (!country) {
+      return res.send({ message: "Country is required" });
+    }
+    if (!state) {
+      return res.send({ message: "State is required" });
+    }
+    if (!city) {
+      return res.send({ message: "City is required" });
+    }
+    if (!address) {
+      return res.send({ message: "Address is required" });
+    }
+    if (!pinCode) {
+      return res.send({ message: "Pincode is required" });
+    }
+    if (!number) {
+      return res.send({ message: "Number is required" });
+    }
+
+    const order = await orderModel({
+      name,
+      lname,
+      userEmail,
+      country,
+      state,
+      city,
+      address,
+      pinCode,
+      number,
+    }).save();
+    res.status(200).send({
+      success: true,
+      message: "Address Submitted Successfully",
+      order,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in order Address",
+      error,
+    });
+  }
+};
+
+export const google = async (req, res) => {
+  console.log("h")
+  const { email, name, googlePhotoUrl } = req.body;
+  console.log(req.body);
+  try {
+    const user = await userModel.findOne({ email });
+    if (user) {
+      const token = jwt.sign(
+        { id: user._id, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET
+      );
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie('access_token', token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    } else {
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      const newUser = new userModel({
+        name:
+          name.toLowerCase().split(' ').join('') +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePicture: googlePhotoUrl,
+      });
+      await newUser.save();
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECRET
+      );
+      const { password, ...rest } = newUser._doc;
+      res
+        .status(200)
+        .cookie('access_token', token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success:false,
+      message:"Unauthorized access",
+      error,
+    })
   }
 };

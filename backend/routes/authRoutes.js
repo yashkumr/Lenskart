@@ -1,10 +1,12 @@
 import express from "express";
 import {
+  addressController,
   deleteUsersController,
   forgotPasswordController,
   getAllOrdersController,
   getOrdersController,
   getUsersController,
+  google,
   loginController,
   orderStatusController,
   registerController,
@@ -16,6 +18,8 @@ const router = express.Router();
 
 //registerRoute
 router.post("/register", registerController);
+
+router.post('/google', google);
 
 //loginRoute
 router.post("/login", loginController);
@@ -44,7 +48,6 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
 // user orders
 router.get("/orders", requireSignIn, getOrdersController);
 
-
 //all orders
 router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController);
 
@@ -54,6 +57,13 @@ router.put(
   requireSignIn,
   isAdmin,
   orderStatusController
+);
+
+// order- address
+router.post(
+  "/order-address",
+  requireSignIn,
+  addressController
 );
 
 export default router;
