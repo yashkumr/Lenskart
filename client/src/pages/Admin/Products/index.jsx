@@ -7,6 +7,7 @@ import axios from "axios";
 import "./style.css";
 import AdminLayout from "../../../adminComponents/AdminLayout";
 import { Link } from "react-router-dom";
+import Pagination from "../../../components/extraComponent/Pagination.jsx";
 
 const Products = (props) => {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const Products = (props) => {
   const [visibilty, setVisibility] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [productPictures, setProductPictures] = useState([]);
-
+  const [pageNo, setPageNo] = useState(5);
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
@@ -43,9 +44,12 @@ const Products = (props) => {
   //getall products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-product");
+      const { data } = await axios.get(
+        `/api/v1/product/get-product?page=${pageNo}`
+      );
+      console.log(data);
 
-      setAllProducts(data.products);
+      setAllProducts(data.posts);
     } catch (error) {
       console.log(error);
       toast.error("Something Went Wrong");
@@ -55,7 +59,7 @@ const Products = (props) => {
   //lifecycle method
   useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [pageNo]);
 
   const handleClose = () => {
     setShow(false);
@@ -121,28 +125,29 @@ const Products = (props) => {
 
   const renderProducts = () => {
     return (
-      <Table style={{ fontSize: 12 }} responsive="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Category</th>
+      <>
+        <Table style={{ fontSize: 12 }} responsive="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Category</th>
 
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allProducts.length > 0
-            ? allProducts.map((product, id) => (
-                <tr key={product._id}>
-                  <td>{id + 1}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  
-                  <td>{product && product?.category?.name}</td>
-                  {/* <td>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allProducts.length > 0
+              ? allProducts.map((product, id) => (
+                  <tr key={product._id}>
+                    <td>{id + 1}</td>
+                    <td>{product.name}</td>
+                    <td>{product.price}</td>
+
+                    <td>{product && product?.category?.name}</td>
+                    {/* <td>
                     <div style={{ display: "flex" }}>
                       {product.productPictures.map((picture) => (
                         <div className="productImgContainer">
@@ -155,35 +160,37 @@ const Products = (props) => {
                     </div>
                   </td> */}
 
-                  <td>
-                    <button
-                      onClick={() => showProductDetailsModal(product)}
-                      className="p-1 btn btn-primary"
-                    >
-                      info
-                    </button>
-                    <button className="p-1 btn btn-warning m-1">
-                      <Link
-                        key={product._id}
-                        to={`/dashboard/admin/update-product/${product.slug}`}
+                    <td>
+                      <button
+                        onClick={() => showProductDetailsModal(product)}
+                        className="p-1 btn btn-primary"
                       >
-                        Edit
-                      </Link>
-                    </button>
-                    <button
-                      className="p-1 btn btn-danger"
-                      onClick={() => {
-                        handleDelete(product._id);
-                      }}
-                    >
-                      del
-                    </button>
-                  </td>
-                </tr>
-              ))
-            : null}
-        </tbody>
-      </Table>
+                        info
+                      </button>
+                      <button className="p-1 btn btn-warning m-1">
+                        <Link
+                          key={product._id}
+                          to={`/dashboard/admin/update-product/${product.slug}`}
+                        >
+                          Edit
+                        </Link>
+                      </button>
+                      <button
+                        className="p-1 btn btn-danger"
+                        onClick={() => {
+                          handleDelete(product._id);
+                        }}
+                      >
+                        del
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </Table>
+        <Pagination pageNo={pageNo} setPageNo={setPageNo}  />
+      </>
     );
   };
 
@@ -202,7 +209,7 @@ const Products = (props) => {
           placeholder={`Product Name`}
           onChange={(e) => setName(e.target.value)}
         />
-        
+
         <Input
           label="Price"
           value={price}
@@ -295,7 +302,6 @@ const Products = (props) => {
           </Col>
         </Row>
         <Row>
-         
           <Col md="6">
             <label className="key">Category</label>
             <p className="value">

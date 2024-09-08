@@ -49,7 +49,7 @@ router.post(
   createProductController
 );
 
-// get product
+// get product for Admin
 router.get("/get-product", getProductController);
 
 // visible product

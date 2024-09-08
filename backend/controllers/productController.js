@@ -79,16 +79,37 @@ export const createProductController = async (req, res) => {
 // getProductController
 export const getProductController = async (req, res) => {
   try {
-    const products = await productModel
-      .find({})
+    const page = parseInt(req.query.page) || 1;
+    const perPage = 3;
+    const totalPosts = await productModel.countDocuments();
+    console.log(totalPosts);
+    console.log("hello");
+
+    const totalPages = Math.ceil(totalPosts / perPage);
+    console.log(totalPages);
+
+    if (page > totalPages) {
+      return res.status(404).json({ message: "page not found" });
+    }
+    const posts = await productModel
+      .find()
       .populate("category")
-      .limit(12)
-      .sort({ createdAt: -1 });
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .exec();
+
+    // console.log(products);
+
+    // const products = await productModel
+    //   .find({})
+    //   .populate("category")
+    //   .limit(12)
+    //   .sort({ createdAt: -1 });
+
     res.status(200).send({
-      success: true,
-      counTotal: products.length,
-      message: "ALlProducts ",
-      products,
+      posts,
+      totalPages,
+      page,
     });
   } catch (error) {
     console.log(error);
