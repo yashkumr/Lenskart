@@ -18,6 +18,7 @@ const Products = (props) => {
   const [categoryId, setCategoryId] = useState("");
   const [productPictures, setProductPictures] = useState([]);
   const [pageNo, setPageNo] = useState(5);
+  const[totalPosts , setTotalPosts] = useState();
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
@@ -50,6 +51,7 @@ const Products = (props) => {
       console.log(data);
 
       setAllProducts(data.posts);
+      setTotalPosts(data.totalPages);
     } catch (error) {
       console.log(error);
       toast.error("Something Went Wrong");
@@ -189,7 +191,7 @@ const Products = (props) => {
               : null}
           </tbody>
         </Table>
-        <Pagination pageNo={pageNo} setPageNo={setPageNo}  />
+        <Pagination pageNo={pageNo} setPageNo={setPageNo} totalPosts={totalPosts}  />
       </>
     );
   };

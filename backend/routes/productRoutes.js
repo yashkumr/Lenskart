@@ -5,8 +5,11 @@ import {
   brainTreePaymentController,
   braintreeTokenController,
   createProductController,
+  createProductReviewController,
   deleteProductController,
+  deleteReviewController,
   getProductController,
+  getProductReviewsController,
   getSingleProductController,
   productCategoryController,
  
@@ -88,11 +91,23 @@ router.get("/product-category/:slug", productCategoryController);
 //search Product
 router.get("/search/:keyword", searchProductController);
 
+
+
 //payments routes
 //token
 router.get("/braintree/token", braintreeTokenController);
 //payments
 router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
+
+// create review
+router.put("/review", requireSignIn, createProductReviewController)
+
+// get reviews
+router.get("/reviews", requireSignIn,getProductReviewsController);
+
+// delete reviews
+router.delete("/delete-reviews", requireSignIn, isAdmin, deleteReviewController)
+
 
 
 export default router;

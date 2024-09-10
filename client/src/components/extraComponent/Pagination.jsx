@@ -1,12 +1,12 @@
 
-export default function Pagination({ pageNo, setPageNo }) {
+export default function Pagination({ pageNo, setPageNo,totalPosts }) {
   const prevThreeNoArr = Array.from(
-    { length: 3 },
+    { length: 2 },
     (_, index) => pageNo - 1 - index
   )
     .filter((value) => value > 0)
     .reverse();
-  const nextFourNoArr = Array.from({ length: 4 }, (_, index) => pageNo + index);
+  const nextFourNoArr = Array.from({ length: 1 }, (_, index) => pageNo + index);
   const paginationArr = [...prevThreeNoArr, ...nextFourNoArr];
 
   const handleNext = () => {
@@ -37,9 +37,16 @@ export default function Pagination({ pageNo, setPageNo }) {
         );
       })}
 
-      <div onClick={handleNext} className="page-btn">
+      {/* <div onClick={handleNext} className="page-btn">
         {">"}
-      </div>
+      </div> */}
+      {pageNo < totalPosts ? (
+        <div onClick={handleNext} className="page-btn">
+          {">"}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

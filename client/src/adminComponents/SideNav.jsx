@@ -162,6 +162,14 @@ const SideNav = () => {
                     <p> Orders</p>
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a href="/dashboard/admin/reviews" className="nav-link">
+                    <span className="p-2">
+                    <FaProductHunt />{" "} 
+                    </span>
+                    <p> Reviews</p>
+                  </a>
+                </li>
               </ul>
             </nav>
             {/* /.sidebar-menu */}

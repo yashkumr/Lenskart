@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
     },
     brand: {
-      type:String,
+      type: String,
     },
     color: {
       type: String,
@@ -33,10 +33,34 @@ const productSchema = new mongoose.Schema(
 
     productPictures: [{ img: { type: String } }],
 
+    ratings: {
+      type: Number,
+      default: 0,
+    },
+
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
     reviews: [
       {
-        userId: { type: mongoose.ObjectId, ref: "User" },
-        review: String,
+        user: {
+          type: mongoose.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        rating: {
+          type: Number,
+          required: true,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
       },
     ],
     category: {
@@ -49,12 +73,10 @@ const productSchema = new mongoose.Schema(
     },
     visibility: {
       type: String,
-      required:true,
+      required: true,
       trim: true,
     },
     updatedAt: Date,
-
-   
   },
   { timestamps: true }
 );

@@ -26,6 +26,7 @@ import AllFilterProduct from "./pages/AllFilterProduct.jsx";
 import Search from "./pages/Search.jsx";
 import AdminOrder from "./pages/Admin/Orders/AdminOrder.jsx";
 import UserOrder from "./pages/User/UserOrder.jsx";
+import ProductReviews from "./pages/Admin/ProductReviews.jsx";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="admin/banner" element={<HomeBanner />} />
           <Route path="admin/all-users" element={<AllUser />} />
           <Route path="admin/orders" element={<AdminOrder />} />
+          <Route path="admin/reviews" element={<ProductReviews/>} />
           <Route path="admin/create-category" element={<Category />} />
           <Route
             path="admin/banner/update-banner/:slug"

@@ -36,7 +36,7 @@
     border-radius: 10px;
   } */
   .pagination-container {
-    width: 550px;
+    width: 450px;
     display: flex;
     justify-content: space-evenly;
   }
@@ -46,6 +46,7 @@
     padding: 1rem;
     color: white;
     border-radius: 10px;
+    cursor: pointer;
   }
   
   .active {

@@ -461,3 +461,143 @@ export const brainTreePaymentController = async (req, res) => {
     console.log(error);
   }
 };
+
+// createProductReviewController
+
+export const createProductReviewController = async (req, req) => {
+  try {
+    const { rating, comment, productId } = req.body;
+    console.log(req.body);
+    const review = {
+      user: req.user._id,
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+    };
+    console.log(review);
+    const product = await productModel.findById(productId);
+
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === req.user._id.toString())
+          (rev.rating = rating), (rev.comment = comment);
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+
+    let avg = 0;
+
+    product.reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    product.ratings = avg / product.reviews.length;
+
+    await product.save();
+
+    res.status(200).send({
+      success: true,
+      message: "Reviews Submitted Seccessfully !",
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in search product",
+      error,
+    });
+  }
+};
+
+//getProductReviewsController
+export const getProductReviewsController = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.query.id);
+
+    if (!product) {
+      return res.send({ product: "Product not found" });
+    }
+    res.status(200).send({
+      success: true,
+      reviews: product.reviews,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting Reviews",
+      error,
+    });
+  }
+};
+
+// deleteReviewController
+
+export const deleteReviewController = async(req, res)=>{
+  try{
+    const product = await productModel.findById(req.query.productId);
+
+    
+    if (!product) {
+      return res.send({ product: "Product not found" });
+    }
+    const reviews = product.reviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    let avg = 0;
+
+  reviews.forEach((rev) => {
+    avg += rev.rating;
+  });
+
+  let ratings = 0;
+
+  if (reviews.length === 0) {
+    ratings = 0;
+  } else {
+    ratings = avg / reviews.length;
+  }
+
+  const numOfReviews = reviews.length;
+
+  await productModel.findByIdAndUpdate(
+    req.query.productId,
+    {
+      reviews,
+      ratings,
+      numOfReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+  res.status(200).send({
+    success: true,
+    message:"User's reviews deleted successfully"
+
+  });
+
+  }catch(error){
+    console.log(error);
+    res.status(500).send({
+
+      success:false,
+      message:"error in deleting products",
+      error
+    })
+
+  }
+  
+}
+

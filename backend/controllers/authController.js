@@ -2,8 +2,11 @@ import { comparePassword, hashPassword } from "../helper/authHelper.js";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import JWT from "jsonwebtoken";
-import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import Mailgen from "mailgen";
+
 
 //Register Routes
 export const registerController = async (req, res) => {
@@ -240,7 +243,7 @@ export const getOrdersController = async (req, res) => {
       .populate("buyer", "name");
     console.log(orders);
     res.json(orders);
-  } catch (error) { 
+  } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
@@ -295,7 +298,7 @@ export const orderStatusController = async (req, res) => {
 
 export const addressController = async (req, res) => {
   try {
-    console.log("hello order")
+    console.log("hello order");
     console.log(req.body);
     const {
       name,
@@ -308,6 +311,8 @@ export const addressController = async (req, res) => {
       pinCode,
       number,
     } = req.body;
+
+    const adminEmail = process.env.EMAIL; // Admin email from environment
 
     if (!name) {
       return res.send({ message: "Name is required" });
@@ -348,6 +353,68 @@ export const addressController = async (req, res) => {
       pinCode,
       number,
     }).save();
+
+    let config = {
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    };
+
+    let transporter = nodemailer.createTransport(config);
+    let MailGenerator = new Mailgen({
+      theme: "default",
+      product: {
+        name: "Mailgen",
+        link: "https://mailgen.js/",
+      },
+    });
+
+    let response = {
+      body: {
+        name: "BGS Energy",
+        intro: "Your information has arrived!",
+        table: {
+          data: [
+            {
+              item: "BGS Supplier utility",
+              description: "BGS for gas, water & utility supplier",
+              price: "Get Quote",
+            },
+          ],
+        },
+        outro: "Looking forward to do more business",
+      },
+    };
+    let mail = MailGenerator.generate(response);
+
+
+    let message = {
+      from: process.env.EMAIL,
+      to: userEmail,
+      subject: "Get quote",
+      html: mail,
+    };
+    let adminMessage = {
+      from: process.env.EMAIL,
+      to: adminEmail,
+      subject: "New Quote Request",
+      html: mail,
+    };
+
+    transporter
+      .sendMail(message)
+      .then(() => {
+        return transporter.sendMail(adminMessage);
+      })
+
+      .then(() => {
+        return res.status(201).json({
+          msg: " A New Email received Successfully",
+        });
+      });
+
     res.status(200).send({
       success: true,
       message: "Address Submitted Successfully",
@@ -364,7 +431,7 @@ export const addressController = async (req, res) => {
 };
 
 export const google = async (req, res) => {
-  console.log("h")
+  console.log("h");
   const { email, name, googlePhotoUrl } = req.body;
   console.log(req.body);
   try {
@@ -377,7 +444,7 @@ export const google = async (req, res) => {
       const { password, ...rest } = user._doc;
       res
         .status(200)
-        .cookie('access_token', token, {
+        .cookie("access_token", token, {
           httpOnly: true,
         })
         .json(rest);
@@ -388,7 +455,7 @@ export const google = async (req, res) => {
       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
       const newUser = new userModel({
         name:
-          name.toLowerCase().split(' ').join('') +
+          name.toLowerCase().split(" ").join("") +
           Math.random().toString(9).slice(-4),
         email,
         password: hashedPassword,
@@ -402,7 +469,7 @@ export const google = async (req, res) => {
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
-        .cookie('access_token', token, {
+        .cookie("access_token", token, {
           httpOnly: true,
         })
         .json(rest);
@@ -410,9 +477,9 @@ export const google = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      success:false,
-      message:"Unauthorized access",
+      success: false,
+      message: "Unauthorized access",
       error,
-    })
+    });
   }
 };

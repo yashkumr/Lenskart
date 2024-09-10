@@ -27,6 +27,7 @@ const SearchInput = () => {
   return (
     <>
       <div>
+        {/* form */}
         <form
           className="d-flex search-form r"
           role="search"
