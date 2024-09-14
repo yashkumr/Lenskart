@@ -6,6 +6,7 @@ import categoryModal from "../models/categoryModal.js";
 import braintree from "braintree";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
+import userModel from "../models/userModel.js";
 
 dotenv.config();
 
@@ -464,13 +465,16 @@ export const brainTreePaymentController = async (req, res) => {
 
 // createProductReviewController
 
-export const createProductReviewController = async (req, req) => {
+export const createProductReviewController = async (req, res) => {
   try {
     const { rating, comment, productId } = req.body;
     console.log(req.body);
+    console.log(req.user);
+    const user = await userModel.findById(req.user._id);
+
     const review = {
       user: req.user._id,
-      name: req.user.name,
+      name: user.name,
       rating: Number(rating),
       comment,
     };
@@ -578,8 +582,6 @@ export const deleteReviewController = async(req, res)=>{
     },
     {
       new: true,
-      runValidators: true,
-      useFindAndModify: false,
     }
   );
   res.status(200).send({
